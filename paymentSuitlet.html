@@ -1227,26 +1227,18 @@ input.invalid {
             }
             console.log('cardType', o_ccTypes[cardNum[0]])
             var cardType =o_ccTypes[cardNum[0]]
-            var visaLogo ='https://www.freepnglogos.com/uploads/visa-logo-download-png-21.png'
-            var mastercardLogo ='https://www.freepnglogos.com/uploads/mastercard-png/file-mastercard-logo-svg-wikimedia-commons-4.png'
-            var discoverCardLogo ='https://www.freepnglogos.com/uploads/discover-png-logo/credit-cards-discover-png-logo-4.png'
-            var amexLogo ='https://www.americanexpress.com/content/dam/amex/us/merchant/supplies-uplift/product/images/img-WEBLOGO1-01.jpg'
-            var imgLogo =''
 
-            switch(cardType){
-                case 'Amex': imgLogo =amexLogo;
-                break;
-                case 'Visa': imgLogo =visaLogo;
-                break;
-                case 'Master Card': imgLogo =mastercardLogo;
-                break;
-                case 'Discover': imgLogo =discoverCardLogo;
-                break;
-            }
+            var cardLogoUrls = {
+                'American Express': 'https://www.americanexpress.com/content/dam/amex/us/merchant/supplies-uplift/product/images/img-WEBLOGO1-01.jpg',
+                'Visa': 'https://www.freepnglogos.com/uploads/visa-logo-download-png-21.png',
+                'Master Card': 'https://www.freepnglogos.com/uploads/mastercard-png/file-mastercard-logo-svg-wikimedia-commons-4.png',
+                'Discover': 'https://www.freepnglogos.com/uploads/discover-png-logo/credit-cards-discover-png-logo-4.png',
+            };
+            var bankLogoUrl = 'https://cdn-icons-png.flaticon.com/128/2838/2838851.png';
+            var imgLogo = cardLogoUrls[cardType] || bankLogoUrl; 
             console.log('logo', imgLogo)
 
             var dateString =document.getElementById('cc-exp').value
-
             console.log(dateString)
 
             var dateObj =validateDate(dateString, false)
@@ -1257,14 +1249,6 @@ input.invalid {
 
             console.log('formatteddate', formatteddate)
 
-            // var ccv =document.getElementById('cc-cvc').value
-            // var b_goodcvv = ccv.length <= 4 && ccv.length > 2;
-            // if (!b_goodcvv) {
-            //     valid =false
-            //     document.getElementById('invalid-cc-cvc').classList.add('d-block')
-            // }else{
-            //     document.getElementById('invalid-cc-cvc').classList.remove('d-block')
-            // }
 
             var cname =document.getElementById('username').value
             console.log(cname)
@@ -1300,9 +1284,7 @@ input.invalid {
                 '    <button id="btn.'+inid.trim()+'" type="button" class="btn" style="padding-bottom:10px;color:rgb(38, 133, 189)" data-bs-toggle="modal" data-bs-target="#ccmodal" onclick="editCC(this)"><b>edit</b></button>'+
             '  </div>' + 
             '';
-            // let isEdit =editCCId !=''
-            
-            // console.log('isedit', isEdit)
+
             console.log('ccid', editCCId)
             console.log('ccid', editExisting)
             console.log(valid)
@@ -1352,32 +1334,26 @@ input.invalid {
        var pdfs =document.getElementById('pdfs').value.split(',')
        var hasToken =token!="" && token!='{{token}}'
         
-        if(sub==26){
-            $('#ccbtn').hide()   
-          }
-    //    hasToken =false
+       if(sub==26){
+        $('#ccbtn').hide()
+       }
+
        if(hasToken){
             document.getElementById('ccinfo').hidden =true
-            var visaLogo ='https://www.freepnglogos.com/uploads/visa-logo-download-png-21.png'
-            var mastercardLogo ='https://www.freepnglogos.com/uploads/mastercard-png/file-mastercard-logo-svg-wikimedia-commons-4.png'
-            var discoverCardLogo ='https://www.freepnglogos.com/uploads/discover-png-logo/credit-cards-discover-png-logo-4.png'
-            var amexLogo ='https://www.americanexpress.com/content/dam/amex/us/merchant/supplies-uplift/product/images/img-WEBLOGO1-01.jpg'
-            var banklogo ="https://cdn-icons-png.flaticon.com/128/2838/2838851.png"
-            var imgLogo =''
-            console.log('cardtype', cardtype)
-            switch(cardtype){
-                case 'American Express': imgLogo =amexLogo;
-                break;
-                case 'Visa': imgLogo =visaLogo;
-                break;
-                case 'Master Card': imgLogo =mastercardLogo;
-                break;
-                case 'Discover': imgLogo =discoverCardLogo;
-                break;
-            }
+            
+            var cardLogoUrls = {
+                'American Express': 'https://www.americanexpress.com/content/dam/amex/us/merchant/supplies-uplift/product/images/img-WEBLOGO1-01.jpg',
+                'Visa': 'https://www.freepnglogos.com/uploads/visa-logo-download-png-21.png',
+                'Master Card': 'https://www.freepnglogos.com/uploads/mastercard-png/file-mastercard-logo-svg-wikimedia-commons-4.png',
+                'Discover': 'https://www.freepnglogos.com/uploads/discover-png-logo/credit-cards-discover-png-logo-4.png',
+            };
+            var bankLogoUrl = 'https://cdn-icons-png.flaticon.com/128/2838/2838851.png';
+            var imgLogo = cardLogoUrls[cardType] || bankLogoUrl; 
+
             if(cardtype=='Bank Account'){
                 imgLogo =banklogo
             }
+
             console.log('imglogo', imgLogo)
             var ix =document.getElementsByClassName('d-flex flex-row pb-3').length
             var inid ='newcc'+ix.toString()
