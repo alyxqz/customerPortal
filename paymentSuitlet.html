@@ -1,0 +1,1672 @@
+<html><head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js" integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" /> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css"> -->
+<!-- Font Awesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&;display=swap" rel="stylesheet">
+<!-- MDB -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.1.0/mdb.min.css" rel="stylesheet">
+<link rel="stylesheet" href="./css/addons/datatables.min.css">
+<link rel="stylesheet" href="css/style.css">
+<!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" /> -->
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="./js/addons/datatables.min.js"></script>
+<!-- <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script> -->
+<style>
+          .tableFixHead {
+        overflow-y: auto; /* make the table scrollable if height is more than 200 px  */
+        height: 200px; /* gives an initial height of 200px to the table */
+      }
+      .tableFixHead thead th {
+        position: sticky; /* make the table heads sticky */
+        top: 0px; /* table head will be placed from the top of the table and sticks to it */
+      }
+      table {
+        border-collapse: collapse; /* make the table borders collapse to each other */
+        width: 100%;
+      }
+.table-scroll tbody {
+    position: absolute;
+    overflow-y: scroll;
+
+}
+.my-custom-scrollbar {
+position: relative;
+height: 420px;
+overflow: auto;
+}
+.table-wrapper-scroll-y {
+display: block;
+}
+
+.header {
+    overflow: hidden;
+    padding: 20px 0px;
+    background-color: #f9f9f9;
+    }
+.header img {
+    float: right;
+    width: 100px;
+    height: 100px;
+    /* background: #555; */
+    mix-blend-mode: multiply; 
+  }
+  .header h1 {
+        /* position: relative;
+        top: 18px;
+        left: 100px; */
+        font-size:25px;
+        /* text-align:center; */
+    }
+* {
+  box-sizing: border-box;
+  /* padding:10px; */
+}
+h2{
+    font-size: x-large;
+}
+
+.row {
+  display: flex;
+}
+.toggle {
+    display: none;
+}
+.container{
+    padding: 0;
+}
+.step {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbbbbb;
+    border: none;  
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 0.5;
+}
+.step.active {
+    opacity: 1;
+}
+.step.finish {
+    background-color:rgb(124, 209, 249);
+}
+
+/* Create two equal columns that sits next to each other */
+.column {
+  flex: 50%;
+  padding-left: 50px;
+
+}
+.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+   background-color:rgb(254, 255, 255)
+}
+.btn-xl {
+        padding: 10px 20px;
+        margin: 2px;
+        font-size: 20px;
+        border: 1px solid white;
+        /* border-radius: 10px; */
+        width:100%;
+        background-color:rgb(38, 133, 189);
+        /* background-color:rgb(218, 34, 41) */
+    }  
+th {
+    white-space: nowrap;
+
+}
+.btn-inv{
+  border: none;
+  background-color: inherit;
+  cursor: pointer;
+  display: inline-block;
+}
+#footer {
+    position: fixed;
+    bottom: 20px;
+    width: 100%;
+}
+input.invalid {
+        background-color: #ffdddd;
+        }
+#loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 120px;
+  height: 120px;
+  margin: -76px 0 0 -76px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style><style>INPUT:-webkit-autofill,SELECT:-webkit-autofill,TEXTAREA:-webkit-autofill{animation-name:onautofillstart}INPUT:not(:-webkit-autofill),SELECT:not(:-webkit-autofill),TEXTAREA:not(:-webkit-autofill){animation-name:onautofillcancel}@keyframes onautofillstart{}@keyframes onautofillcancel{}</style></head>
+
+<body>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.1.0/mdb.umd.min.js"></script>
+<form id="myform" action="" method="post"> <!-- link to Suitelet; ex action="https://111.extforms.netsuite.com/app"-->
+  <div class="header">
+<img id="logo" src="https://secure.gravatar.com/avatar/41cae4c9356d62f40dc65a11584e0e9f?s=384"  title="original" style="width:150px;height:auto;padding-right:40px;" alt="logo">
+    <h1 style="color:rgb(38, 133, 189);padding-left: 40px;">Welcome, {{entityinfo}}</h1>
+    <h1 style="font-size: medium;padding-left: 40px;">for support please contact:{{supemail}}</h1>
+      <!-- <h1>My website more text name</h1> -->
+  </div>
+
+  <input id="token" name="token" value="{{token}}" type="hidden">
+  <input id="entity" name="entity" value="{{entityinfo}}" type="hidden">
+  <input id="suitelet" name="suitelettoken" value="{{suitelettoken}}" type="hidden">
+  <input id="entityid" name="entityid" value="{{entity}}" type="hidden">
+  <input id="gateway" name="gateway" value="{{gateway}}" type="hidden">
+  <input id="lines" name="lines" value="{{linevalue}}" type="hidden">
+  <input id="pdfs" name="pdfs" value="{{pdfs}}" type="hidden">
+  <input id="sub" name="sub" value="{{subvalue}}" type="hidden">
+  <input id="cardtype" name="cardtype" value="{{ctype}}" type="hidden">
+  <input id="paytype" name="paytype" value="{{ptype}}" type="hidden">
+  <input id="bankname" name="bankname" value="{{bankName}}" type="hidden">
+  <input id="expdate" name="expdate" value="{{expdate}}" type="hidden">
+  <input id="address" name="address" value="{{address}}" type="hidden">
+  <input id="lastfour" name="lastfour" value="{{lastfour}}" type="hidden">
+  <input id="email" name="email" value="{{email}}" type="hidden">
+  <input id="saveccinfo" name="saveccinfo" value="" type="hidden">
+  <input id="supemail" name="email" value="{{supemail}}" type="hidden">
+  <input id="numTotal" name="numTotal" value="0" type="hidden">
+  <input id="payload" name="payload" value="" type="hidden">
+
+    <div class="toggle" style="display: block;">
+        <h2 style="padding-bottom: 30px;padding-left: 40px;padding-top: 30px;padding-right: 0px;">Select which invoices you'd like to pay</h2>
+        <div class="row">
+            <div class="column">
+            <div class="table-wrapper-scroll-y my-custom-scrollbar tableFixHead">
+                <table class="table table-striped mb-0 bg-white" id="invoices" width="100%" style="table-layout:fixed;">
+                    <thead>
+                    <tr>
+                        <!-- <th scope="col"><button class="btn btn-inv">Success</button></th> -->
+                        <th><button id="selectall" type="button" class="btn btn-link btn-rounded btn-sm fw-bold" data-mdb-ripple-color="dark" name="sa_foo" data-checkbox-name="foo" style="padding-bottom: 0%;color:rgb(38, 133, 189)"><b>Select All</b></button></th>
+                        <th scope="col">Invoice#</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Print</th>
+                        <th scope="col"> </th>
+                    </tr>
+                    </thead>
+
+
+                    <tfoot>
+                    <tr><th>Total:</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th style="text-align:left;" id="ftotal">0</th>  
+                    <th></th>
+                    <th></th>
+                    </tr></tfoot>
+                </table>
+            </div>
+            <div>
+                <input value="NEXT" id="apply" type="button" class="btn btn-lg btn-primary btn-xl" style="font-size: 1em;" onclick="nextPrev(1)" data-next="" disabled="disabled">
+            </div>
+            </div>
+        
+            <div class="column" style="padding-top: 40px;padding-right: 125px;padding-left: 300px;">
+                
+            <div class="card" style="width: 100%;">
+                <div class="card-body">
+                  <h5 id="total" class="card-title" style="font-size: xx-large;">0</h5>
+                  <h6 class="card-subtitle mb-2 text-muted" style="font-size: larger;">Total</h6>
+                  <p>
+                </p></div>
+              </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toggle">
+        <button type="button" style="padding-bottom: 10px;padding-left: 40px;padding-top: 30px;" class="btn btn-link btn-rounded btn-sm fw-bold" data-mdb-ripple-color="dark" onclick="nextPrev(-1)"><i class="fa fa-arrow-left" aria-hidden="true" style="font-size: 25px;"></i>  Back</button>
+        <h2 style="padding-bottom: 25px;padding-left: 40px;padding-top: 5px;">Select your payment method to complete your purchase</h2>
+        <div class="row">
+            <div class="column">
+                <div class="'card" id="paymentmeth"></div>
+                <div id="payments" class="card-body">
+                    <div id="methods" class="methods">
+                    </div>
+                    <p>
+                    <a id="ccbtn" class="btn btn-primary btn-xl" data-bs-toggle="modal" data-bs-target="#ccmodal" style="font-size: 1em;background-color:#f9f9f9;color:rgb(38, 133, 189)">Add Credit Card</a>
+                    <a id="achbtn" class="btn btn-primary btn-xl" data-bs-toggle="modal" data-bs-target="#achModal" style="font-size: 1em;background-color:#f9f9f9;color:rgb(38, 133, 189)">Add Bank Account</a>
+                    </p>
+                    <p></p><div id="ccinfo" hidden=""><br><center><input id="saveinfo" type="checkbox" name="saveinfo" onclick="getResponse(this)"> Save Credit Card Information</center><br><br></div>
+                    <div class="modal fade" id="ccmodal" aria-labelledby="ccmodalLabel" aria-hidden="true">
+                        <div class="modal-dialog  modal-lg">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="ccmodalLabel">Enter Credit Card</h1>
+                                <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+                            </div>
+                            <div class="modal-body">
+                                    <div id="ccbody" class="card-body" style="height: auto;">
+                                    
+                                        
+                                        <br>
+                                        <div class="form-group">
+                                            <label for="cc-number" class="control-label">CARD NUMBER</label>
+                                            <input id="cc-number" name="cardNumber" type="tel" class="input-lg form-control cc-number" autocomplete="cc-number" placeholder="•••• •••• •••• ••••">
+                                            <p style="margin: 10px;" class="invalid-feedback" id="invalid-cc-number">Credit Card Number Invalid</p>
+                                            <br>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="cc-exp" class="control-label">CARD EXPIRY</label>
+                                                    <input name="exp" id="cc-exp" type="tel" class="input-lg form-control cc-exp" autocomplete="cc-exp" placeholder="•• / ••">
+                                                    <p style="margin: 10px;" class="invalid-feedback" id="invalid-cc-exp">EXP Date invalid</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="form-group">
+                                            <label for="numeric" class="control-label">CARD HOLDER NAME</label> 
+                                            <input id="username" name="username" type="text" class="input-lg form-control">
+                                            <p style="margin: 10px;" class="invalid-feedback" id="invalid-username"></p>
+                                        </div>
+                                        <!-- <div class="form-group"><input value="ADD BANK ACCOUNT" id="submitbank" type="submit" class="btn btn-success btn-lg form-control" style="font-size: 0.8rem;" /></div> -->
+                                    </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" style="background-color:rgb(53, 47, 47)" data-bs-dismiss="modal">Close</button>
+                                <!-- <button id='ccvalid' type="button" class="btn btn-secondary" style="background-color:rgb(39, 118, 53)">Validate</button> -->
+                                <button id="ccsave" type="button" class="btn btn-primary" style="background-color:rgb(38, 133, 189)">Save</button>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="achModal" aria-labelledby="achModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="achModalLabel">Enter Banking Information</h1>
+                                <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+                            </div>
+                            <div class="modal-body">
+                                    <div id="achbody" class="card-body" style="height: auto;">
+                                        <div>
+                                            <label for="acct-type" class="control-label">BANK ACCT TYPE&nbsp;&nbsp;&nbsp;</label>
+                                            <select id="accttype" name="accttype">
+                                                <option value="Checking" selected="">Checking</option>
+                                                <option value="Savings">Savings</option>
+                                                <option value="Business Checking">Business Checking</option>
+                                            </select>
+                                        </div>
+                                        <br>
+                                        <br>
+                                        <div class="form-group">
+                                            <label for="ach-bank" class="control-label">BANK NAME</label>
+                                            <input id="ach-bank" name="achbank" type="text" class="input-lg form-control ach-bank" autocomplete="ach-bank" placeholder="••••">
+                                            <p style="margin: 10px;" class="invalid-feedback" id="invalid-ach-bank">Enter Bank Name</p>
+                                        </div>
+                                        <br>
+                                        <div class="form-group">
+                                            <label for="ach-number" class="control-label">BANK ACCOUNT NUMBER</label>
+                                            <input id="ach-number" name="achnumber" type="tel" class="input-lg form-control ach-number" autocomplete="ach-number" placeholder="•••• •••• •••• ••••">
+                                            <p style="margin: 10px;" class="invalid-feedback" id="invalid-ach-number">Invalid Bank Acct</p>
+                                        </div>
+                                        <br>
+                                        <div class="form-group">
+                                            <label for="ach-name" class="control-label">NAME ON ACCOUNT</label>
+                                            <input id="ach-name" name="achname" type="text" class="input-lg form-control ach-name" autocomplete="ach-name" placeholder="••••">
+                                            <p style="margin: 10px;" class="invalid-feedback" id="invalid-ach-name">Please Enter Name for Acct</p>
+                                        </div>
+                                        <br>
+                                        <div class="form-group">
+                                            <label for="ach-routing" class="control-label">ROUTING NUMBER</label>
+                                            <input id="ach-routing" name="achrouting" type="tel" class="input-lg form-control ach-routing" autocomplete="ach-routing" placeholder="••••">
+                                            <p style="margin: 10px;" class="invalid-feedback" id="invalid-ach-routing">Invalid Routing #</p>
+                                        </div><br>
+                                        <!-- <div class="form-group"><input value="ADD BANK ACCOUNT" id="submitbank" type="submit" class="btn btn-success btn-lg form-control" style="font-size: 0.8rem;" /></div> -->
+                                    </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" style="background-color:rgb(53, 47, 47)" data-bs-dismiss="modal">Close</button>
+                                <button id="achsave" type="button" class="btn btn-primary" style="background-color:rgb(38, 133, 189)">Save</button>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="updateModal" aria-labelledby="updateModal" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="updateModal">Update Billing Information</h1>
+                                <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+                            </div>
+                            <div class="modal-body">
+                                    <div id="updatebody" class="card-body" style="height: auto;">
+                                        <br>
+                                        <div class="form-group">
+                                            <label for="update-exp" class="control-label">Exp Date</label>
+                                            <input id="update-exp" name="update-exp" type="text" class="input-lg form-control ach-bank" placeholder="••••">
+                                            <p style="margin: 10px;" class="invalid-feedback" id="invalid-up-exp">Date invalid</p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="baddress" class="control-label">Billing Address</label>
+                                            <input id="bill-address" name="baddress" type="text" class="input-lg form-control" placeholder="•••• •••• •••• ••••">
+                                            <p style="margin: 10px;" class="invalid-feedback" id="invalid-address">Please Enter Address</p>
+                                        </div>
+                                        <br>
+                                        <div class="form-group">
+                                            <label for="bill-city" class="control-label">Billing City</label>
+                                            <input id="bill-city" name="billcity" type="text" class="input-lg form-control" placeholder="••••">
+                                            <p style="margin: 10px;" class="invalid-feedback" id="invalid-bill-city">Please Enter Billing City</p>
+                                        </div>
+                                        <br>
+                                        <div class="form-group">
+                                            <label for="bill-state" class="control-label">Billing State</label>
+                                            <input id="bill-state" name="billstate" type="tel" class="input-lg form-control" placeholder="••••">
+                                            <p style="margin: 10px;" class="invalid-feedback" id="invalid-bill-state">Please Enetr Billing State</p>
+                                        </div>
+                                        <br>
+                                        <div class="form-group">
+                                            <label for="bill-zip" class="control-label">Billing Zip</label>
+                                            <input id="bill-zip" name="billzip" type="tel" class="input-lg form-control" placeholder="••••">
+                                            <p style="margin: 10px;" class="invalid-feedback" id="invalid-bill-zip">Please Enter Billing Zip</p>
+                                        </div>
+                                        <br>
+                                        <!-- <div class="form-group"><input value="ADD BANK ACCOUNT" id="submitbank" type="submit" class="btn btn-success btn-lg form-control" style="font-size: 0.8rem;" /></div> -->
+                                    </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" style="background-color:rgb(53, 47, 47)" data-bs-dismiss="modal">Close</button>
+                                <button id="updatecc" type="button" class="btn btn-primary" style="background-color:rgb(38, 133, 189)">Save</button>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <a class="btn btn-primary btn-xl" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1" style="font-size: 1em;background-color:#f9f9f9;color:rgb(38, 133, 189)" >Update Existing Payment Information</a> -->
+                    <input value="COMPLETE PAYMENT" id="complete" type="submit" class="btn btn-lg btn-primary btn-xl" style="font-size: 1em;" onclick="nextPrev(1)" data-next="">
+
+                    <p></p>
+                </div>
+
+            </div>
+
+            <div class="column" style="padding-top: 0px;padding-right: 125px;padding-left: 300px;">
+                <div class="card" style="width: 100%;">
+                    <div class="card-body">
+                      <h5 id="ototal" class="card-title" style="font-size: xx-large;">0</h5>
+                      <h6 class="card-subtitle mb-2 text-muted" style="font-size: larger;">Total</h6>
+                      <p>
+                        <a class="btn btn-primary btn-xl" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1" style="font-size: 1em;background-color:#f9f9f9;color:rgb(38, 133, 189)"><i class="fa fa-arrow-down" aria-hidden="true"></i>
+                            Order Details</a>
+                        </p>
+                    </div>
+                  </div>
+                <div class="row">
+                <div class="col">
+                    <div class="collapse multi-collapse" id="multiCollapseExample1">
+                    <div class="card card-body">
+                        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                            <table id="summary">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Invoice</th>
+                                        <th scope="col">Amount</th>
+                                    </tr>
+                                    </thead>
+                            </table>
+                        </div>
+                        
+                    </div>
+                    </div>
+                </div>
+
+                </div>
+        </div>
+        </div>
+        
+
+    </div>
+
+    <div class="toggle" id="loader"></div>
+    <br><br>
+
+        <div id="footer" style="text-align:center;margin-top:40px;">
+            <span class="step active"></span>
+            <span class="step"></span>
+        </div>
+</form>
+
+<script>
+    var editACHId =""
+    var editCCId =""
+    var editExisting =false
+
+    const getResponse =function(el){
+        console.log(el.id)
+        let saveInfo =document.getElementById('saveinfo').checked
+        if(!saveInfo){
+            document.getElementById('saveccinfo').value =false
+        }else{
+            document.getElementById('saveccinfo').value =true
+        }
+        console.log(document.getElementById(el.id).value)
+    }
+
+    const getId =function(el){
+        console.log(el.id)
+        const chckid='chck.'+el.id.split('.')[1]
+        console.log(el.id.split('.')[1])
+        var totalDict ={}
+        
+        console.log(chckid)
+        var checkBoxes = $("input[type='checkbox']")
+        checkBoxes.prop("checked", false); 
+        document.getElementById(chckid).checked=true
+        const row = document.querySelector('#invoices tr[id="'+el.id+'"]');
+        let amount = row.cells[4].innerHTML;
+        document.getElementById('numTotal').value =amount
+        amount =parseFloat(amount)
+        console.log('amount', amount.toLocaleString('en-US', {style:'currency', currency:'USD'}))
+
+        $("#apply").attr("disabled", false);
+
+        $('#total').html(amount.toLocaleString('en-US', {style:'currency', currency:'USD'}))
+        $('#ftotal').html(amount.toLocaleString('en-US', {style:'currency', currency:'USD'}))
+        $('#ototal').html(amount.toLocaleString('en-US', {style:'currency', currency:'USD'}))
+        
+        $('#ibody').remove()
+
+        let table_html ='<tbody  id="ibody" class="mdc-data-table__content">'
+        table_html += '<tr>'
+        table_html += '<td class="mdc-data-table__cell">' +row.cells[1].innerHTML +'</td>'
+        table_html += '<td class="mdc-data-table__cell">&nbsp;' +amount.toLocaleString('en-US', {style:'currency', currency:'USD'})+'</td>'
+        table_html +='</tr>'
+        table_html +='</tbody>'
+        $('#summary').append(table_html)
+        totalDict[row.cells[2].innerHTML] ={amount:parseFloat(amount), line:el.id.split('.')[1]}
+        const year = row.cells[2].innerHTML;
+        const rowid =el.id
+        console.log(rowid)
+        console.log(row)
+        console.log(year)
+        console.log(totalDict)
+        $('#payload').val(JSON.stringify(totalDict))
+        // alert(el.id);
+        nextPrev(1)
+    }
+    
+    const updateTotal =(elem)=>{
+        let currentAmount =$('#numTotal').val()
+        // console.log('currentAmount', currentAmount)
+        // console.log('element',elem.id)
+        
+        let att =document.getElementById(elem.id)
+        console.log('att', att)
+        
+        let row =elem.parentNode.parentNode
+        console.log('row', row.cells)
+        
+        let amount =row.cells[4].innerHTML
+        console.log(amount)
+        // console.log($('#total').text())
+
+        var grid = document.getElementById("invoices");
+        var checkBoxes =grid.getElementsByTagName('input');
+        var gridTotal =0
+        var totalDict ={}
+        console.log(att.checked)
+
+        if(att.checked){
+            console.log('currentAmountChecked', currentAmount )
+            console.log('checked', elem)
+            console.log('checked', att.innerHTML)
+            console.log('addedamount', amount)
+            console.log('currentamount', currentAmount)
+            amount =parseFloat(amount) +parseFloat(currentAmount)
+            document.getElementById('numTotal').value =amount
+            $('#total').html(amount.toLocaleString('en-US', {style:'currency', currency:'USD'}))
+            $('#ftotal').html(amount.toLocaleString('en-US', {style:'currency', currency:'USD'}))
+            $('#ototal').html(amount.toLocaleString('en-US', {style:'currency', currency:'USD'}))
+        }else{
+            console.log('currnetamountUnchecked', currentAmount)
+            amount =parseFloat(currentAmount) -parseFloat(amount)
+            console.log(amount)
+            document.getElementById('numTotal').value =amount
+            $('#total').html(amount.toLocaleString('en-US', {style:'currency', currency:'USD'}))
+            $('#ftotal').html(amount.toLocaleString('en-US', {style:'currency', currency:'USD'}))
+            $('#ototal').html(amount.toLocaleString('en-US', {style:'currency', currency:'USD'}))
+            console.log('shouldupdate total', )
+            console.log('unchecked', elem)
+            // $('#ibody').remove()
+
+        }
+        if(amount==0){
+            $("#apply").attr("disabled", true);
+        }else{
+            $("#apply").attr("disabled", false);
+        }
+    }
+    
+    const deleteCC =function(elem){
+        let payElem =getPayElem(elem)
+        payElem.remove()
+        $("#complete").attr("disabled", true);
+    }
+    
+    const toggleInput =function(elem){
+        console.log(elem)
+        $("#complete").attr("disabled", false);
+    }
+
+    const editACH =function(elem){
+        let payElem =getPayElem(elem)
+        console.log('editACH', payElem)
+        const id =payElem.id
+        console.log('id', id)
+        editACHId =id
+        editExisting =true
+    }
+
+    const editCC =function(elem){
+        let payElem =getPayElem(elem)
+        console.log('editCC', payElem)
+        const id =payElem.id
+        console.log('id', id)
+        editCCId =id
+        editExisting =true
+    }
+
+    const getPayElem =function(elem){
+        console.log(elem)
+        let payId =elem.id.split('.')[1]
+        payId ='pay.' +payId
+        let payElem =document.getElementById(payId)
+        console.log('payelem', payElem)
+        return payElem
+    }
+
+    var validateDate =function(date, update){
+            var d =''
+            var intyyyy =''
+            var intmm =''
+            var intdd =''
+            var nochar = /^\d\d\d\d$/i;
+            var wchar = /^\d\d\/\d\d$/i
+            var dateString =date.toString()
+            var validDate =""
+            var valid =false
+
+            Date.prototype.formatMMDDYYYY = function(){
+                return (this.getMonth() + 1) + 
+                "/" +  this.getDate() +
+                "/" +  this.getFullYear();
+            }
+            validExp =nochar.test(dateString) || wchar.test(dateString)
+            console.log('datestring', date)
+            console.log('intialexp', validExp)
+            
+            if(!validExp){
+                if(!update){
+                    document.getElementById('invalid-cc-exp').innerHTML ='DateFormat is Incorrect must be MMYY or MM/YY'
+                    document.getElementById('invalid-cc-exp').classList.add('d-block')
+                }else{
+                    document.getElementById('invalid-up-exp').innerHTML ='DateFormat is Incorrect must be MMYY or MM/YY'
+                    document.getElementById('invalid-up-exp').classList.add('d-block')
+                }
+            }
+            else if(validExp){
+                if(!update){
+                    document.getElementById('invalid-cc-exp').classList.remove('d-block')
+                }else{
+                    document.getElementById('invalid-up-exp').classList.remove('d-block')
+                }
+                valid =true
+                validDate =dateString
+                console.log('valiexp', valid)
+                console.log(validExp)
+            }
+
+            if(nochar.test(dateString)){
+                var mm =dateString.substring(0,2)
+                var yy =dateString.substring(2,4)
+                yy ='20'+yy
+                var dd ='01'
+                intyyyy =parseInt(yy)
+                intmm =parseInt(mm) -1
+                intdd =parseInt(dd)
+                d =new Date(intyyyy, intmm, intdd) 
+                // log.debug('dateString', new Date(intyyyy, intmm, intdd) < new Date()) 
+
+            }else if(wchar.test(dateString)){
+                var dateString =dateString.split('/')
+                var mm =dateString[0]
+                var yyyy =dateString[1]
+                yyyy ='20' +yyyy
+                intyyyy =parseInt(yyyy)
+                intmm =parseInt(mm) -1
+                intdd =1
+                d =new Date(intyyyy, intmm, intdd)
+                // log.debug('dateString', new Date(intyyyy, intmm, intdd))
+            }
+            console.log(d, new Date())
+            
+            if(d!='' && d< new Date()){
+                
+                if(!update){
+                    document.getElementById('invalid-cc-exp').innerHTML ='Card Date is expired'
+                    document.getElementById('invalid-cc-exp').classList.add('d-block')
+                }else{
+                    document.getElementById('invalid-up-exp').innerHTML ='Card Date is expired'
+                    document.getElementById('invalid-up-exp').classList.add('d-block')
+                }
+                valid =false
+            }
+
+            return {'date': d, 'valid': valid,'dateString':validDate}
+    }
+    
+    validFun =function(el){
+        console.log('checkingscope', 'hello')
+    }
+
+    function getState(zipString) {
+
+        /* Ensure param is a string to prevent unpredictable parsing results */
+        if (typeof zipString !== 'string') {
+            console.error('Must pass the zipcode as a string.');
+            return;
+        }
+
+        /* Ensure we have exactly 5 characters to parse */
+        if (zipString.length !== 5) {
+            console.error('Must pass a 5-digit zipcode.');
+            return;
+        }
+
+        /* Ensure we don't parse strings starting with 0 as octal values */
+        const zipcode = parseInt(zipString, 10);
+
+        let st;
+        let state;
+
+        /* Code cases alphabetized by state */
+        if (zipcode >= 35000 && zipcode <= 36999) {
+            st = 'AL';
+            state = 'Alabama';
+        } else if (zipcode >= 99500 && zipcode <= 99999) {
+            st = 'AK';
+            state = 'Alaska';
+        } else if (zipcode >= 85000 && zipcode <= 86999) {
+            st = 'AZ';
+            state = 'Arizona';
+        } else if (zipcode >= 71600 && zipcode <= 72999) {
+            st = 'AR';
+            state = 'Arkansas';
+        } else if (zipcode >= 90000 && zipcode <= 96699) {
+            st = 'CA';
+            state = 'California';
+        } else if (zipcode >= 80000 && zipcode <= 81999) {
+            st = 'CO';
+            state = 'Colorado';
+        } else if ((zipcode >= 6000 && zipcode <= 6389) || (zipcode >= 6391 && zipcode <= 6999)) {
+            st = 'CT';
+            state = 'Connecticut';
+        } else if (zipcode >= 19700 && zipcode <= 19999) {
+            st = 'DE';
+            state = 'Delaware';
+        } else if (zipcode >= 32000 && zipcode <= 34999) {
+            st = 'FL';
+            state = 'Florida';
+        } else if ( (zipcode >= 30000 && zipcode <= 31999) || (zipcode >= 39800 && zipcode <= 39999) ) {
+            st = 'GA';
+            state = 'Georgia';
+        } else if (zipcode >= 96700 && zipcode <= 96999) {
+            st = 'HI';
+            state = 'Hawaii';
+        } else if (zipcode >= 83200 && zipcode <= 83999 && zipcode != 83414) {
+            st = 'ID';
+            state = 'Idaho';
+        } else if (zipcode >= 60000 && zipcode <= 62999) {
+            st = 'IL';
+            state = 'Illinois';
+        } else if (zipcode >= 46000 && zipcode <= 47999) {
+            st = 'IN';
+            state = 'Indiana';
+        } else if (zipcode >= 50000 && zipcode <= 52999) {
+            st = 'IA';
+            state = 'Iowa';
+        } else if (zipcode >= 66000 && zipcode <= 67999) {
+            st = 'KS';
+            state = 'Kansas';
+        } else if (zipcode >= 40000 && zipcode <= 42999) {
+            st = 'KY';
+            state = 'Kentucky';
+        } else if (zipcode >= 70000 && zipcode <= 71599) {
+            st = 'LA';
+            state = 'Louisiana';
+        } else if (zipcode >= 3900 && zipcode <= 4999) {
+            st = 'ME';
+            state = 'Maine';
+        } else if (zipcode >= 20600 && zipcode <= 21999) {
+            st = 'MD';
+            state = 'Maryland';
+        } else if ( (zipcode >= 1000 && zipcode <= 2799) || (zipcode == 5501) || (zipcode == 5544 ) ) {
+            st = 'MA';
+            state = 'Massachusetts';
+        } else if (zipcode >= 48000 && zipcode <= 49999) {
+            st = 'MI';
+            state = 'Michigan';
+        } else if (zipcode >= 55000 && zipcode <= 56899) {
+            st = 'MN';
+            state = 'Minnesota';
+        } else if (zipcode >= 38600 && zipcode <= 39999) {
+            st = 'MS';
+            state = 'Mississippi';
+        } else if (zipcode >= 63000 && zipcode <= 65999) {
+            st = 'MO';
+            state = 'Missouri';
+        } else if (zipcode >= 59000 && zipcode <= 59999) {
+            st = 'MT';
+            state = 'Montana';
+        } else if (zipcode >= 27000 && zipcode <= 28999) {
+            st = 'NC';
+            state = 'North Carolina';
+        } else if (zipcode >= 58000 && zipcode <= 58999) {
+            st = 'ND';
+            state = 'North Dakota';
+        } else if (zipcode >= 68000 && zipcode <= 69999) {
+            st = 'NE';
+            state = 'Nebraska';
+        } else if (zipcode >= 88900 && zipcode <= 89999) {
+            st = 'NV';
+            state = 'Nevada';
+        } else if (zipcode >= 3000 && zipcode <= 3899) {
+            st = 'NH';
+            state = 'New Hampshire';
+        } else if (zipcode >= 7000 && zipcode <= 8999) {
+            st = 'NJ';
+            state = 'New Jersey';
+        } else if (zipcode >= 87000 && zipcode <= 88499) {
+            st = 'NM';
+            state = 'New Mexico';
+        } else if ( (zipcode >= 10000 && zipcode <= 14999) || (zipcode == 6390) || (zipcode == 501) || (zipcode == 544) ) {
+            st = 'NY';
+            state = 'New York';
+        } else if (zipcode >= 43000 && zipcode <= 45999) {
+            st = 'OH';
+            state = 'Ohio';
+        } else if ((zipcode >= 73000 && zipcode <= 73199) || (zipcode >= 73400 && zipcode <= 74999) ) {
+            st = 'OK';
+            state = 'Oklahoma';
+        } else if (zipcode >= 97000 && zipcode <= 97999) {
+            st = 'OR';
+            state = 'Oregon';
+        } else if (zipcode >= 15000 && zipcode <= 19699) {
+            st = 'PA';
+            state = 'Pennsylvania';
+        } else if (zipcode >= 300 && zipcode <= 999) {
+            st = 'PR';
+            state = 'Puerto Rico';
+        } else if (zipcode >= 2800 && zipcode <= 2999) {
+            st = 'RI';
+            state = 'Rhode Island';
+        } else if (zipcode >= 29000 && zipcode <= 29999) {
+            st = 'SC';
+            state = 'South Carolina';
+        } else if (zipcode >= 57000 && zipcode <= 57999) {
+            st = 'SD';
+            state = 'South Dakota';
+        } else if (zipcode >= 37000 && zipcode <= 38599) {
+            st = 'TN';
+            state = 'Tennessee';
+        } else if ( (zipcode >= 75000 && zipcode <= 79999) || (zipcode >= 73301 && zipcode <= 73399) ||  (zipcode >= 88500 && zipcode <= 88599) ) {
+            st = 'TX';
+            state = 'Texas';
+        } else if (zipcode >= 84000 && zipcode <= 84999) {
+            st = 'UT';
+            state = 'Utah';
+        } else if (zipcode >= 5000 && zipcode <= 5999) {
+            st = 'VT';
+            state = 'Vermont';
+        } else if ( (zipcode >= 20100 && zipcode <= 20199) || (zipcode >= 22000 && zipcode <= 24699) || (zipcode == 20598) ) {
+            st = 'VA';
+            state = 'Virginia';
+        } else if ( (zipcode >= 20000 && zipcode <= 20099) || (zipcode >= 20200 && zipcode <= 20599) || (zipcode >= 56900 && zipcode <= 56999) ) {
+            st = 'DC';
+            state = 'Washington DC';
+        } else if (zipcode >= 98000 && zipcode <= 99499) {
+            st = 'WA';
+            state = 'Washington';
+        } else if (zipcode >= 24700 && zipcode <= 26999) {
+            st = 'WV';
+            state = 'West Virginia';
+        } else if (zipcode >= 53000 && zipcode <= 54999) {
+            st = 'WI';
+            state = 'Wisconsin';
+        } else if ( (zipcode >= 82000 && zipcode <= 83199) || zipcode == 83414 ) {
+            st = 'WY';
+            state = 'Wyoming';
+        } else {
+            st = 'none';
+            state = 'none';
+            console.log('No state found matching', zipcode);
+        }
+
+        /* Return `state` for full name or `st` for postal abbreviation */
+        return st;
+    }
+
+    const updateCC =(elem)=>{
+        console.log('elem', elem)
+        radioId =elem.id.split('.')[1]
+        console.log('radiolabel', radioId)
+        console.log('radiobutt', radioId.toString())
+        let radio =document.getElementById(radioId.toString())
+        console.log('radiobutt', document.getElementById(radioId))
+        let valid =true
+
+        console.log('validupdate', valid)
+        console.log('expdate', expdate)
+        
+        $('#updatecc').on('click', function(el){
+            console.log('saved triggerd', valid)
+            let expdate =document.getElementById('update-exp').value
+            let token =document.getElementById('token').value
+            let validDate =validateDate(expdate, true)
+            valid =validDate.valid
+            var x =document.getElementById('updatebody')
+            var y =x.getElementsByTagName('input')
+            var input =y
+            var ziptest =/^\d{5}(-\d{4})?(?!-)$/
+            let billadd =document.getElementById('bill-address').value
+            let billcity =document.getElementById('bill-city').value
+            let billzip =document.getElementById('bill-zip').value
+            let billstate =""
+            
+            keyupHandler = function(input){
+                if (input.value.length){
+                    input.classList.remove('invalid')
+                    console.log(input.className)
+                    console.log('input', input)
+                }
+                else {
+                    console.log('invalid', input.className)
+                    // document.getElementById('ccsave').setAttribute('disabled', 'true')
+                }
+            }
+                
+            for (i=0; i<input.length; i++){
+                input[i].onchange = function(){
+                    keyupHandler(this);
+                }
+            }
+            
+            for (i = 0; i < y.length; i++) {
+                if (y[i].value == "") {
+                    y[i].className += " invalid";
+                    valid = false;
+                }
+                console.log(y[i])
+            }
+            if(document.getElementById('bill-address').value ==""){
+                document.getElementById('invalid-address').classList.add('d-block')
+                valid =false
+            }else{
+                document.getElementById('invalid-address').classList.remove('d-block')   
+            }
+
+            if(document.getElementById('bill-city').value ==""){
+                document.getElementById('invalid-bill-city').classList.add('d-block')
+                valid =false
+            }else{
+                document.getElementById('invalid-bill-city').classList.remove('d-block')   
+            }
+
+            if(document.getElementById('bill-state').value ==""){
+                document.getElementById('invalid-bill-state').classList.add('d-block')
+                valid =false
+            }else{
+                document.getElementById('invalid-bill-state').classList.remove('d-block')   
+            }
+
+            if(document.getElementById('bill-zip').value ==""){
+                document.getElementById('invalid-bill-zip').classList.add('d-block')
+                valid =false
+            }else if(!ziptest.test(document.getElementById('bill-zip').value)){
+                document.getElementById('invalid-bill-zip').innerHTML ='Zip Code invalid'
+                document.getElementById('invalid-bill-zip').classList.add('d-block')
+
+            }else{
+                billstate =getState(document.getElementById('bill-zip').value)
+                document.getElementById('bill-state').value =billstate
+                document.getElementById('invalid-bill-zip').classList.remove('d-block')   
+            }
+
+            var ccinfo ={
+                'type':'token', 'tokenvalue':token, 
+                'update': true, 'billadd':billadd,
+                'billcity':billcity, 'billstate':billstate, 
+                'billzip':billzip, 'expdate':expdate
+            }
+
+            if(valid){
+                $('#updateModal').modal('hide')
+                document.getElementById(radioId).value =JSON.stringify(ccinfo)
+                document.getElementById('exp.'+radioId).innerHTML ='Exp: ' +expdate
+                document.getElementById('update-exp').value =""
+                document.getElementById('bill-address').value =""
+                document.getElementById('bill-city').value =""
+                document.getElementById('bill-state').value =""
+                document.getElementById('bill-zip').value =""
+            }
+        })
+    }
+    
+    function isValid_Bank_Acc_Number(bank_account_number) {
+            // Regex to check valid
+            // BANK ACCOUNT NUMBER CODE
+            let regex = new RegExp(/^[0-9]{5,18}$/);
+        
+            // bank_account_number CODE
+            // is empty return false
+            if (bank_account_number == null) {
+                return false
+            }
+        
+            // Return true if the bank_account_number
+            // matched the ReGex
+            if (regex.test(bank_account_number) == true) {
+                return true
+            }
+            else {
+                return false
+            }
+        }
+        
+    var validRoutingNumber = function(routing) {
+        if (routing.length !== 9) {
+            return false;
+        }
+        
+        // http://en.wikipedia.org/wiki/Routing_transit_number#MICR_Routing_number_format
+        var checksumTotal = (7 * (parseInt(routing.charAt(0),10) + parseInt(routing.charAt(3),10) + parseInt(routing.charAt(6),10))) +
+                            (3 * (parseInt(routing.charAt(1),10) + parseInt(routing.charAt(4),10) + parseInt(routing.charAt(7),10))) +
+                            (9 * (parseInt(routing.charAt(2),10) + parseInt(routing.charAt(5),10) + parseInt(routing.charAt(8),10)));
+        
+        var checksumMod = checksumTotal % 10;
+        if (checksumMod !== 0) {
+            return false;
+        } else {
+            return true;
+        }
+    };
+
+    function saveACH(e){
+            console.log('loggedsave', 'hello')
+            var x =document.getElementById('achbody')
+            var y =x.getElementsByTagName('input')
+            var banklogo ="https://cdn-icons-png.flaticon.com/128/2838/2838851.png"
+            var achnum =document.getElementById('ach-number').value
+            var routing =document.getElementById('ach-routing').value
+            var username =document.getElementById('ach-name').value
+            var bankName =document.getElementById('ach-bank').value
+            let valid =true
+
+            keyupHandler = function(input){
+                console.log('input', input)
+                if (input.value.length){
+                    if(input.id =='ach-number'){
+                        let validBank =isValid_Bank_Acc_Number(input.value)
+                        console.log('validbankacc', validBank)
+                    }
+                    if(input.id =='ach-routing'){
+                        let validRout =validRoutingNumber(input.id)
+                        console.log('validRouting', validRout)                        
+                    }
+                    input.classList.remove('invalid')
+                    console.log('inputid', input.id)
+                    console.log(input.className)
+                    console.log('input', input)
+                }
+                else {
+                    console.log('invalid', input.className)
+                    document.getElementById('ccsave').setAttribute('disabled', 'true')
+                }
+            }
+                
+            for (i=0; i<y.length; i++){
+                y[i].onchange = function(){
+                    keyupHandler(this);
+                }
+            }
+            console.log('validbank', isValid_Bank_Acc_Number(achnum))
+            if(!(isValid_Bank_Acc_Number(achnum))){
+                document.getElementById('invalid-ach-number').classList.add('d-block')
+                valid =false
+            }else{
+                document.getElementById('invalid-ach-number').classList.remove('d-block')
+                // valid =true
+            }
+            console.log(validRoutingNumber(routing))
+            if(!validRoutingNumber(routing)){
+                document.getElementById('invalid-ach-routing').classList.add('d-block')
+                valid =false
+            }else{
+                document.getElementById('invalid-ach-routing').classList.remove('d-block')
+                // valid =true
+            }
+
+            if(username==""){
+                document.getElementById('invalid-ach-name').classList.add('d-block')
+                valid =false
+            }else{
+                document.getElementById('invalid-ach-name').classList.remove('d-block')
+                // valid =true
+            }
+
+            if(bankName==""){
+                document.getElementById('invalid-ach-bank').classList.add('d-block')
+                valid =false
+            }else{
+                document.getElementById('invalid-ach-bank').classList.remove('d-block')
+            }
+
+            let lastFour =achnum.toString().slice(-4)
+            for (i = 0; i < y.length; i++) {
+                // If a field is empty...
+                if (y[i].value == "") {
+                // add an "invalid" class to the field:
+                y[i].className += " invalid";
+                // and set the current valid status to false:
+                valid = false;
+                }
+            }
+
+            console.log('validsave', valid)
+            var ix =document.getElementsByClassName('d-flex flex-row pb-3').length
+            var inid ='newach'+ix.toString()
+            var htmlstr =document.getElementById('methods').innerHTML
+            var accttype =document.getElementById('accttype').value
+            var achTemplate = '' + 
+            ' <div id="pay.'+inid+'" class="d-flex flex-row pb-3" style="width: 100%;">' + 
+            '    <div class="d-flex align-items-center pe-2">' + 
+            '       <input id="'+inid+'" class="form-check-input" type="radio" name="paymentMethod"' + 
+            '             value=aria-label="..." onclick=toggleInput(this) checked />' + 
+            '   </div>' + 
+            '' + 
+            '  <div class="rounded border d-flex w-100 p-3 align-items-center">' + 
+            '    <div class="img-box">' + 
+            '       <img src='+banklogo+ 
+            '         style="height:35px" alt="">' + 
+            '     </div>' + 
+            '   <p id="ptype.'+inid+'" class="mb-0">&nbsp' + 
+            '     '+username + ' Ending in '+lastFour+
+            '    </p>' + 
+            '    <div class="ms-auto">'+
+            '    <button id="del.'+inid.trim()+'" type="button" class="btn" style="padding-bottom:10px;color:rgb(38, 133, 189)" onclick="deleteCC(this)"><b>delete</b></button>'+
+            '    <button id="btn.'+inid.trim()+'" type="button" class="btn" style="padding-bottom:10px;color:rgb(38, 133, 189)" data-bs-toggle="modal" data-bs-target="#achModal" onclick="editACH(this)"><b>edit</b></button>'+
+            '    </div> </div>' + 
+            '  </div>' + 
+            '';
+            let achinfo ={'type':'ach','achnum': achnum, 'routing':routing, 'achname':username, 'achbank':bankName, 'token':'', 'acctype':accttype}
+
+            // let isEdit =editACHId !=''
+            
+            // console.log('isedit', isEdit)
+            console.log('achId', editACHId)
+            console.log('edit', editExisting)
+            
+            if(valid && !editExisting){
+                htmlstr +=achTemplate
+                document.getElementById('methods').innerHTML =htmlstr
+                document.getElementById(inid).value =JSON.stringify(achinfo)
+                $('#achModal').modal('hide')
+                var achnum =document.getElementById('ach-number').value =''
+                var routing =document.getElementById('ach-routing').value =''
+                var username =document.getElementById('ach-name').value =''
+                var bankName =document.getElementById('ach-bank').value =''
+                $("#complete").attr("disabled", false);
+                // $(this).prev().click();
+            }
+
+            if(valid && editExisting){
+                let achid =editACHId.split('.')[1]
+                document.getElementById(achid).value =JSON.stringify(achinfo)
+                document.getElementById('ptype.'+achid).innerHTML='&nbsp'+username+' Ending in '+lastFour
+                $('#achModal').modal('hide')
+                var achnum =document.getElementById('ach-number').value =''
+                var routing =document.getElementById('ach-routing').value =''
+                var username =document.getElementById('ach-name').value =''
+                var bankName =document.getElementById('ach-bank').value =''
+                editExisting =false
+            }
+            
+        }
+    
+    function saveCC(e){
+            console.log('loggedsave', 'hello')
+
+            var x =document.getElementById('ccbody')
+            var y =x.getElementsByTagName('input')
+            var input =y
+
+            var o_ccTypes = {
+                3 : 'Amex',
+                4 : 'Visa',
+                5 : 'Master Card',
+                6 : 'Discover'
+            };
+
+            let valid =true
+            keyupHandler = function(input){
+                if (input.value.length){
+                    input.classList.remove('invalid')
+                    console.log(input.className)
+                    console.log('input', input)
+                }
+                else {
+                    console.log('invalid', input.className)
+                    document.getElementById('ccsave').setAttribute('disabled', 'true')
+                }
+            }
+                
+            for (i=0; i<input.length; i++){
+                input[i].onchange = function(){
+                    keyupHandler(this);
+                }
+            }
+            
+            for (i = 0; i < y.length; i++) {
+                // If a field is empty...
+                if (y[i].value == "") {
+                // add an "invalid" class to the field:
+                y[i].className += " invalid";
+                // and set the current valid status to false:
+                valid = false;
+                }
+                console.log(y[i])
+            }
+
+            var cardNum =document.getElementById('cc-number').value
+            console.log('cardNumber', cardNum)
+            var b_goodCard;
+            if ((_.includes([4, 5, 6], +cardNum[0]) && cardNum.length === 16)) {
+                b_goodCard = true;
+                document.getElementById('invalid-cc-number').classList.remove('d-block')
+            } else if (+cardNum[0] === 3 && cardNum.length >= 15){
+                b_goodCard = true;
+                document.getElementById('invalid-cc-number').classList.remove('d-block')
+            } else {
+                b_goodCard = false;
+                valid =false     
+                document.getElementById('invalid-cc-number').classList.add('d-block')
+            }
+            if (!b_goodCard)
+            {
+                var s_cardType = o_ccTypes[cardNum[0]];
+                if( _.isUndefined(o_ccTypes[cardNum[0]])){   
+                    s_cardType = ' unidentifiable credit card'
+                }
+            }
+            console.log('cardType', o_ccTypes[cardNum[0]])
+            var cardType =o_ccTypes[cardNum[0]]
+            var visaLogo ='https://www.freepnglogos.com/uploads/visa-logo-download-png-21.png'
+            var mastercardLogo ='https://www.freepnglogos.com/uploads/mastercard-png/file-mastercard-logo-svg-wikimedia-commons-4.png'
+            var discoverCardLogo ='https://www.freepnglogos.com/uploads/discover-png-logo/credit-cards-discover-png-logo-4.png'
+            var amexLogo ='https://www.americanexpress.com/content/dam/amex/us/merchant/supplies-uplift/product/images/img-WEBLOGO1-01.jpg'
+            var imgLogo =''
+
+            switch(cardType){
+                case 'Amex': imgLogo =amexLogo;
+                break;
+                case 'Visa': imgLogo =visaLogo;
+                break;
+                case 'Master Card': imgLogo =mastercardLogo;
+                break;
+                case 'Discover': imgLogo =discoverCardLogo;
+                break;
+            }
+            console.log('logo', imgLogo)
+
+            var dateString =document.getElementById('cc-exp').value
+
+            console.log(dateString)
+
+            var dateObj =validateDate(dateString, false)
+            valid =dateObj.valid
+            var formatteddate =dateObj.date
+            var vdate =dateObj.dateString
+            console.log(vdate)
+
+            console.log('formatteddate', formatteddate)
+
+            // var ccv =document.getElementById('cc-cvc').value
+            // var b_goodcvv = ccv.length <= 4 && ccv.length > 2;
+            // if (!b_goodcvv) {
+            //     valid =false
+            //     document.getElementById('invalid-cc-cvc').classList.add('d-block')
+            // }else{
+            //     document.getElementById('invalid-cc-cvc').classList.remove('d-block')
+            // }
+
+            var cname =document.getElementById('username').value
+            console.log(cname)
+            if(cname==""){
+                document.getElementById('invalid-username').classList.add('d-block')
+                document.getElementById('invalid-username').innerHTML ='Please Enter Card Holder Name'
+                valid =false
+            }else{
+                document.getElementById('invalid-username').classList.remove('d-block')
+            }
+
+            var ix =document.getElementsByClassName('d-flex flex-row pb-3').length
+            var inid ='newcc'+ix.toString()
+            var lastFour =cardNum.toString().slice(-4)
+            var htmlstr =document.getElementById('methods').innerHTML
+            var ccTemplate = '' + 
+            ' <div id="pay.'+inid+'" class="d-flex flex-row pb-3" style="width: 100%;">' + 
+            '    <div class="d-flex align-items-center pe-2" onclick=toggleInput(this)>' + 
+            '       <input id="'+inid+'" class="form-check-input" type="radio" name="paymentMethod"' + 
+            '             aria-label="..." onclick=toggleInput(this) checked/>' + 
+            '   </div>' + 
+            '' + 
+            '  <div class="rounded border d-flex w-100 p-3 align-items-center">' + 
+            '    <div class="img-box">' + 
+            '       <img id="img.'+inid+'" src='+imgLogo+ 
+            '         style="height:35px" alt="">' + 
+            '     </div>' + 
+            '   <p id="ptype.'+inid+'"class="mb-0" style="text-align:right">&nbsp' + 
+            '     '+cardType+ ' Ending in ' +lastFour+
+            '    </p>' + 
+            '    <div id="exp.'+inid+'"class="ms-auto"> Exp: '+vdate+'&nbsp&nbsp'+'</div> '+
+                '    <button id="del.'+inid.trim()+'" type="button" class="btn" style="padding-bottom:10px;color:rgb(38, 133, 189)" onclick="deleteCC(this)"><b>delete</b></button>'+
+                '    <button id="btn.'+inid.trim()+'" type="button" class="btn" style="padding-bottom:10px;color:rgb(38, 133, 189)" data-bs-toggle="modal" data-bs-target="#ccmodal" onclick="editCC(this)"><b>edit</b></button>'+
+            '  </div>' + 
+            '';
+            // let isEdit =editCCId !=''
+            
+            // console.log('isedit', isEdit)
+            console.log('ccid', editCCId)
+            console.log('ccid', editExisting)
+            console.log(valid)
+            let gateway =document.getElementById('gateway').value
+
+
+            var ccinfo ={'type':'cc', 'ccnum':cardNum, 'expDate':vdate, 'name':cname, 'token':'', 'gateway':gateway}
+            if(valid && !editExisting){
+                htmlstr +=ccTemplate
+                document.getElementById('methods').innerHTML =htmlstr
+                document.getElementById(inid).value =JSON.stringify(ccinfo)
+                $('#ccmodal').modal('hide')
+                document.getElementById('cc-number').value =''
+                document.getElementById('cc-exp').value =''
+                document.getElementById('username').value =''
+                // document.getElementById('cc-cvc').value =''
+                document.getElementById('ccinfo').hidden =false
+                document.getElementById('saveinfo').checked=true
+                document.getElementById('saveccinfo').value=true
+                $("#complete").attr("disabled", false);
+                return false
+            } 
+            if(valid && editExisting){
+                let ccid =editCCId.split('.')[1]
+                document.getElementById(ccid).value =JSON.stringify(ccinfo)
+                document.getElementById('exp.'+ccid).innerHTML ='Exp: '+vdate
+                document.getElementById('ptype.'+ccid).innerHTML = '&nbsp'+cardType+' Ending in '+lastFour
+                document.getElementById('img.'+ccid).src =imgLogo
+                $('#ccmodal').modal('hide')
+                document.getElementById('cc-number').value =''
+                document.getElementById('cc-exp').value =''
+                document.getElementById('username').value =''
+                // document.getElementById('cc-cvc').value =''
+                editExisting =false
+            }
+    }
+        
+    $(document).ready(function(el){
+       validFun(el)
+       var lines = document.getElementById("lines").value;
+       var sub = document.getElementById("sub").value;
+       var token =document.getElementById("token").value
+       var lastFour =document.getElementById("lastfour").value
+       var cardtype =document.getElementById('cardtype').value
+       var paytype =document.getElementById('paytype').value
+       var expdate =document.getElementById('expdate').value
+       var pdfs =document.getElementById('pdfs').value.split(',')
+       var hasToken =token!="" && token!='{{token}}'
+        
+        if(sub==26){
+            $('#ccbtn').hide()   
+          }
+    //    hasToken =false
+       if(hasToken){
+            document.getElementById('ccinfo').hidden =true
+            var visaLogo ='https://www.freepnglogos.com/uploads/visa-logo-download-png-21.png'
+            var mastercardLogo ='https://www.freepnglogos.com/uploads/mastercard-png/file-mastercard-logo-svg-wikimedia-commons-4.png'
+            var discoverCardLogo ='https://www.freepnglogos.com/uploads/discover-png-logo/credit-cards-discover-png-logo-4.png'
+            var amexLogo ='https://www.americanexpress.com/content/dam/amex/us/merchant/supplies-uplift/product/images/img-WEBLOGO1-01.jpg'
+            var banklogo ="https://cdn-icons-png.flaticon.com/128/2838/2838851.png"
+            var imgLogo =''
+            console.log('cardtype', cardtype)
+            switch(cardtype){
+                case 'American Express': imgLogo =amexLogo;
+                break;
+                case 'Visa': imgLogo =visaLogo;
+                break;
+                case 'Master Card': imgLogo =mastercardLogo;
+                break;
+                case 'Discover': imgLogo =discoverCardLogo;
+                break;
+            }
+            if(cardtype=='Bank Account'){
+                imgLogo =banklogo
+            }
+            console.log('imglogo', imgLogo)
+            var ix =document.getElementsByClassName('d-flex flex-row pb-3').length
+            var inid ='newcc'+ix.toString()
+            lastFour =lastFour.slice(-4)
+            var htmlstr =document.getElementById('methods').innerHTML
+            var btnStr ='<button id="btn.'+inid.trim()+'" type="button" class="btn" style="padding-bottom:10px;color:rgb(38, 133, 189)" data-bs-toggle="modal" data-bs-target="#updateModal" onclick="updateCC(this)"><b>update</b></button>'
+            if(sub==26){
+                btnStr =''
+            }
+            
+            var ccTemplate = '' + 
+                ' <div id="pay.'+inid+'"class="d-flex flex-row pb-3" style="width: 100%;">' + 
+                '    <div class="d-flex align-items-center pe-2">' + 
+                '       <input id="'+inid.trim()+'" class="form-check-input" type="radio" name="paymentMethod"' + 
+                '             aria-label="..." checked onclick=toggleInput(this) />' + 
+                '   </div>' + 
+                '' + 
+                '  <div class="rounded border d-flex w-100 p-3 align-items-center">' + 
+                '    <div class="img-box">' + 
+                '       <img src='+imgLogo+ 
+                '         style="height:35px" alt="">' + 
+                '     </div>' + 
+                '   <p class="mb-0" style="text-align:right">&nbsp' + 
+                '     '+cardtype+' Ending in '+lastFour+
+                '    </p>' + 
+                '    <div id="exp.'+inid+'" class="ms-auto"> Exp: '+expdate+'</div>'+
+                btnStr+
+                '  </div>' + 
+                '';
+            var achTemplate = '' + 
+                ' <div id="pay.'+inid+'" class="d-flex flex-row pb-3" style="width: 75%;">' + 
+                '    <div class="d-flex align-items-center pe-2">' + 
+                '       <input id="'+inid+'" class="form-check-input" type="radio" name="paymentMethod"' + 
+                '             value=aria-label="..." onclick=toggleInput(this) checked />' + 
+                '   </div>' + 
+                '' + 
+                '  <div class="rounded border d-flex w-100 p-3 align-items-center">' + 
+                '    <div class="img-box">' + 
+                '       <img src='+banklogo+ 
+                '         style="height:35px" alt="">' + 
+                '     </div>' + 
+                '   <p class="mb-0">&nbsp' + 
+                '     '+paytype+
+                '    </p>' + 
+                '    <div id="last.'+inid+'" class="ms-auto"> Ending in : '+lastFour+
+                '    </div> </div>' + 
+                '  </div>' + 
+                '';
+                
+                if(paytype==1){
+                    htmlstr +=ccTemplate
+                }else{
+                    htmlstr +=achTemplate
+                }
+                var ccinfo ={'type':'token', 'tokenvalue':token, 'update': false}
+                console.log('token', token)
+                
+                document.getElementById('methods').innerHTML =htmlstr
+                document.getElementById(inid).value =JSON.stringify(ccinfo)
+       }
+
+       console.log(token, lastFour)
+       
+       if(lines =='{{linevalue}}'){
+        lines ='EXAMPLEINV,6756886,9/1/2024,485.00'
+       }
+
+       let line_data =lines.split(',')
+       let temparr =[]
+       let i,j, temparray, chunk=4
+       for(i=0, j=line_data.length; i<j; i=i +chunk){
+          temparray =line_data.slice(i, i+chunk)
+          temparr.push(temparray)
+       }
+       console.log('temparr', temparr)
+
+        console.log(temparr)
+        let columns = ['invoice', 'id', 'date', 'amount']
+        posts_array =temparr
+
+        let table_html = '<tbody style="overflow-y: scroll; overflow-x: hidden; height: 100px;">';
+        for (let i = 0; i < posts_array.length; i++){
+            let somevariable ='chck.'+i
+            let rowvar ='row.' +i
+            console.log('rowvariable',rowvar)
+            table_html += '<tr id="'+rowvar+'">';
+            table_html +='<td style="padding-left: 40px;padding-right:0px"><input type="checkbox" class="checkbox" id='+somevariable+' name="radio_btn" value="Yes" onclick="updateTotal(this)" /> </td>'
+            for( let j = 0; j < columns.length; j++ ){     
+                table_html  += '<td>' + posts_array[i][j] + '</td>'
+            }
+            table_html +='<td><a id="pdflink" href="'+pdfs[i]+'" target="_blank">Print</td>'
+            table_html +='<td><button class="btn btn-link btn-rounded btn-sm fw-bold" data-mdb-ripple-color="dark" id="'+rowvar+'" type="button" style="padding-bottom: 0px;color:rgb(38, 133, 189)" onclick="getId(this)"><b>Pay Now</b></button></td>'
+            table_html += '</tr>'
+        }
+        table_html +='</tbody>'
+
+        console.log(table_html)
+
+        $('#invoices').append(table_html)
+
+        $('#apply').click(function(event){
+            console.log('nextpage')
+
+            $('#ibody').remove()
+            var grid = document.getElementById("invoices");
+            var checkBoxes = grid.getElementsByTagName("input");
+            var gridTotal =0
+            var totalDict ={}
+            table_html ='<tbody  id="ibody" class="mdc-data-table__content">'
+
+            for (var i = 0; i < checkBoxes.length; i++) {
+                if (checkBoxes[i].checked) {
+                row = checkBoxes[i].parentNode.parentNode;
+
+                if(row.cells ==undefined) continue
+                let amount =parseFloat(row.cells[4].innerHTML)
+                amount =amount.toLocaleString('en-US', {style:'currency', currency:'USD'})
+
+                table_html += '<tr>'
+                table_html += '<td class="mdc-data-table__cell">' +row.cells[1].innerHTML +'</td>'
+                table_html += '<td class="mdc-data-table__cell">' +'&nbsp;'+amount+'</td>'
+                table_html +='</tr>'
+
+                console.log(table_html)
+                console.log(row.id)
+                console.log('applyfunction', row.cells[0])
+                console.log('applyfunction', gridTotal)
+                console.log('applyfunction', amount)
+                console.log('applyfunction', row.cells[4].innerHTML)
+                console.log('applyfunction', row.cells[1].innerHTML)
+
+                amount =parseFloat(row.cells[4].innerHTML).toFixed(2)
+                gridTotal +=parseFloat(amount)
+                console.log(amount)
+
+                if(totalDict.hasOwnProperty(row.cells[2].innerHTML)){
+                        totalDict[row.cells[2].innerHTML].amount +=parseFloat(amount)
+                }else{
+                    totalDict[row.cells[2].innerHTML] ={amount:parseFloat(amount), line:row.id.split('.')[1]}
+                    
+                }
+              }
+            }
+            
+            $('#payload').val(JSON.stringify(totalDict))
+            console.log('gridTotalApplied', gridTotal)
+            table_html +='</tbody>'
+            $('#summary').append(table_html)
+        })
+        
+        $(window).keydown(function(event){
+            if(event.keyCode == 13) {
+                event.preventDefault();
+                console.log('fuck you')
+                return false;
+            }
+        });
+
+        $('#selectall').click(function(el){
+            var $checkbox = $(this).find(':checkbox');
+            var checkBoxes = $("input[type='checkbox']")
+            if(checkBoxes.prop("checked")==true)
+                checkBoxes.prop("checked", false); 
+            else
+                checkBoxes.prop("checked", true)
+
+            console.log($checkbox)
+            console.log(checkBoxes)
+            // var grid = document.getElementById("invoices");
+            // var checkBoxes = grid.getElementsByTagName("input");
+            var gridTotal = 0;
+            var totalDict ={}
+            console.log(checkBoxes)
+            for (var i = 0; i < checkBoxes.length; i++) {
+                if (checkBoxes[i].checked) {
+                var row = checkBoxes[i].parentNode.parentNode;
+
+                if(row.cells ==undefined) continue
+
+                amount =parseFloat(row.cells[4].innerHTML).toFixed(2)
+                gridTotal +=parseFloat(amount)
+                console.log(amount)
+
+                if(totalDict.hasOwnProperty(row.cells[2].innerHTML)){
+                        totalDict[row.cells[2].innerHTML] +=parseFloat(amount)
+                }else{
+                    totalDict[row.cells[2].innerHTML] =parseFloat(amount)
+                    
+                }
+              }
+            }
+            console.log('payload', totalDict)
+            document.getElementById('numTotal').value =gridTotal
+            $('#total').html(gridTotal.toLocaleString('en-US',{style:'currency', currency:'USD'}))
+            $('#ototal').html(gridTotal.toLocaleString('en-US',{style:'currency', currency:'USD'}))
+            $('#ftotal').html(gridTotal.toLocaleString('en-US',{style:'currency', currency:'USD'}))
+            
+            var amount =document.getElementById('numTotal').value
+            if(amount==0){
+                $("#apply").attr("disabled", true);
+            }else{
+                $("#apply").attr("disabled", false);
+            }
+        })
+        
+        $('#achsave').on('click', saveACH)
+
+        console.log('values', $('input[name="paymentMethod"]:checked').val())
+
+        $('#ccsave').on('click', saveCC)
+
+        if(document.getElementsByClassName('d-flex flex-row pb-3').length ==0){
+            console.log('no credit cards present')
+            $("#complete").attr("disabled", true);
+        }else{
+            $("#complete").attr("disabled", false);
+        }
+
+        var amount =document.getElementById('total').innerHTML
+        console.log('total', amount)
+        amount =0
+        if(amount==0){
+            $("#apply").attr("disabled", true);
+        }else{
+            $("#apply").attr("disabled", false);
+        }
+    })
+
+</script>
+<script>
+    var currentTab = 0; 
+    showTab(currentTab); 
+    console.log('currentTab', currentTab)
+
+    function showTab(n) {
+      var x = document.getElementsByClassName("toggle");
+      x[n].style.display = "block";
+      
+      if(n<2){
+        fixStepIndicator(n)    
+      }
+      
+    }
+    
+    function nextPrev(n) {
+      var x = document.getElementsByClassName("toggle");
+    //   console.log('container', x)
+    //   console.log('validForm', n == 1 && !validateForm())
+      x[currentTab].style.display = "none";
+      
+      currentTab = currentTab + n;
+      console.log('currenttabdisplayed', currentTab)
+      
+      if (currentTab >= x.length) {
+        document.getElementById("regForm").submit();
+        return false;
+      }
+      showTab(currentTab);
+    }
+    
+    function validateForm() {
+      var x, y, i, valid = true;
+      x = document.getElementsByClassName("toggle");
+      y = x[currentTab].getElementsByTagName("input");
+      for (i = 0; i < y.length; i++) {
+        if (y[i].value == "") {
+          y[i].className += " invalid";
+          valid = false;
+        }
+      }
+      console.log('validupdate', valid)
+      if (valid) {
+        document.getElementsByClassName("step")[currentTab].className += " finish";
+      }
+      document.getElementsByClassName("step")[currentTab].className += " finish";
+      return valid; 
+    }
+    
+    function fixStepIndicator(n) {
+      var i, x = document.getElementsByClassName("step");
+      for (i = 0; i < x.length; i++) {
+        x[i].className = x[i].className.replace(" active", "");
+      }
+      x[n].className += " active";
+    }
+</script>
+
+
+
+
+
+</body></html>
