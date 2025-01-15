@@ -2,7 +2,7 @@
 
 This Suitelet provides a secure portal for customers to view open invoices and make payments. The script dynamically generates the portal based on customer-specific data and integrates with NetSuite’s payment processing features.
 
-This script is generic and can handle all third party API's for Credit Card/ACH processing. This example using Visa's Authorize.net payment gateway
+its design is generic and can handle all third party API's for Credit Card/ACH processing. This example using Visa's Authorize.net payment gateway
 
 ---
 
@@ -15,19 +15,21 @@ This script is generic and can handle all third party API's for Credit Card/ACH 
 - **PDF Generation**: Generates downloadable PDF files for processed payments.
 - **Payment History Logging**: Logs every payment attempt for auditing.
 
-## Examples
 
 ### 1. Manage Invoices
-![Manage Invoices](https://i.imgur.com/R8AY3Vo.png)
 Get customer specifc data from NetSuite and allow users to manage open invoices for payment via tokenized suitelet
 
+![Manage Invoices](https://i.imgur.com/R8AY3Vo.png)
+
+
 ### 2. Manage Payment Methods
-![Manage Payment Methods](https://i.imgur.com/rgZ1hvu.png)
 Allow customers to maintain (Update, Edit, Delete) Credit Card and ACH specific data.
+![Manage Payment Methods](https://i.imgur.com/rgZ1hvu.png)
+
 
 ### 3. Download/Print Receipts
-![Download/Print Receipts](https://i.imgur.com/MHLJlSX.png)
 Print Open invoices from NetSuite to review and download payment receipts when payments is validated.
+![Download/Print Receipts](https://i.imgur.com/MHLJlSX.png)
 
 ---
 
