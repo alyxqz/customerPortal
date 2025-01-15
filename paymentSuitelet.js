@@ -276,6 +276,8 @@ function(file, record, search, render, authNet, constants) {
         return tokeid
         'ACH-TOKEN-456'; // Mocked response
     }
+    
+    //send request without saving users Credit Card info
     function proccessCCNoSave(params){
         var payment =params.tranid
         var new_config =authNet.getConfigFromCache()

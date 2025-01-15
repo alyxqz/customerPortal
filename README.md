@@ -1,6 +1,6 @@
 # Customer Payment Portal Suitelet
 
-This Suitelet provides a secure portal for customers to view open invoices and make payments. The script dynamically generates the portal based on customer-specific data generated from Netsuite and uses [Authorize.net](https://www.authorize.net/) as a payment gateway
+This Suitelet provides a secure portal for customers to view open invoices and make payments. The script dynamically generates the portal based on customer-specific data generated from Netsuite and uses [Authorize.net](https://developer.authorize.net/api/reference/index.html) as a payment gateway
 
 ---
 
@@ -12,31 +12,6 @@ This Suitelet provides a secure portal for customers to view open invoices and m
 - **Dynamic Templates**: Uses HTML templates for portal and response pages.
 - **PDF Generation**: Generates downloadable PDF files for processed payments.
 - **Payment History Logging**: Logs every payment attempt for auditing.
-
-## Usage
-
-#### Payload Structure
-
-1. **Root Object**
-    - Contains two main sections: `payload` and `paymentMethod`.
-
-2. **`payload`**: Holds invoice data.
-    - **`invoiceId`**: Unique identifier of the invoice.
-    - **`amount`**: Payment amount applied to the invoice.
-
-3. **`paymentMethod`**: Contains details about the payment method.
-    - **`type`**: Payment type (`cc` or `ach`).
-    - **Credit Card Fields**:
-        - `ccnum`, `expDate`, `ccv`.
-    - **ACH Fields**:
-        - `achnum`, `routing`, `achname`.
-
-4. **Other Fields**:
-    - **`numTotal`**: Total transaction amount.
-    - **`entityid`**: Customer identifier.
-
-
-
 
 ## **Installation**
 
@@ -79,6 +54,27 @@ Update the `config.json` file with your account-specific settings:
   }
 }
 ```
+## Usage
+
+#### Payload Structure
+
+1. **Root Object**
+    - Contains two main sections: `payload` and `paymentMethod`.
+
+2. **`payload`**: Holds invoice data.
+    - **`invoiceId`**: Unique identifier of the invoice.
+    - **`amount`**: Payment amount applied to the invoice.
+
+3. **`paymentMethod`**: Contains details about the payment method.
+    - **`type`**: Payment type (`cc` or `ach`).
+    - **Credit Card Fields**:
+        - `ccnum`, `expDate`, `ccv`.
+    - **ACH Fields**:
+        - `achnum`, `routing`, `achname`.
+
+4. **Other Fields**:
+    - **`numTotal`**: Total transaction amount.
+    - **`entityid`**: Customer identifier.
 
 ## Examples
 
