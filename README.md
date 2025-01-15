@@ -71,11 +71,11 @@ Update the `config.json` file with your account-specific settings:
 ##### Create Token
 
 3. Navigate to tokenGenerator script page:
-    **Deploy Script**:  
+    1. **Deploy Script**:  
      -Choose recurring for Sch Type
      -Set frequency to every 15 mins
 
-    **Run `tokenGenerator.js` Map Reduce**: 
+    2. **Run `tokenGenerator.js` Map Reduce**: 
      -Customer Records will be populated with unique a token used access inovoices.
 
 ##### SuiteletURL
