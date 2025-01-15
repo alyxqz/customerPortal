@@ -15,25 +15,25 @@ This Suitelet provides a secure portal for customers to view open invoices and m
 
 ## Usage
 
-### Payload Structure
+## Payload Structure
 
-**Root Object**
+1. **Root Object**
     - Contains two main sections: `payload` and `paymentMethod`.
 
-**`payload`**: Holds invoice data.
+2. **`payload`**: Holds invoice data.
     - **`invoiceId`**: Unique identifier of the invoice.
     - **`amount`**: Payment amount applied to the invoice.
 
-**`paymentMethod`**: Contains details about the payment method.
+3. **`paymentMethod`**: Contains details about the payment method.
     - **`type`**: Payment type (`cc` or `ach`).
     - **Credit Card Fields**:
         - `ccnum`, `expDate`, `ccv`.
     - **ACH Fields**:
         - `achnum`, `routing`, `achname`.
 
-**Other Fields**:
+4. **Other Fields**:
     - **`numTotal`**: Total transaction amount.
-    - **`entityid`**: NetSuite Unique identifier.
+    - **`entityid`**: Customer identifier.
 
 
 ## **Installation**
