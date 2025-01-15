@@ -13,27 +13,27 @@ This Suitelet provides a secure portal for customers to view open invoices and m
 - **PDF Generation**: Generates downloadable PDF files for processed payments.
 - **Payment History Logging**: Logs every payment attempt for auditing.
 
-### Usage
+## Usage
 
-## Payload Structure
+### Payload Structure
 
-1. **Root Object**
+**Root Object**
     - Contains two main sections: `payload` and `paymentMethod`.
 
-2. **`payload`**: Holds invoice data.
+**`payload`**: Holds invoice data.
     - **`invoiceId`**: Unique identifier of the invoice.
     - **`amount`**: Payment amount applied to the invoice.
 
-3. **`paymentMethod`**: Contains details about the payment method.
+**`paymentMethod`**: Contains details about the payment method.
     - **`type`**: Payment type (`cc` or `ach`).
     - **Credit Card Fields**:
         - `ccnum`, `expDate`, `ccv`.
     - **ACH Fields**:
         - `achnum`, `routing`, `achname`.
 
-4. **Other Fields**:
+**Other Fields**:
     - **`numTotal`**: Total transaction amount.
-    - **`entityid`**: Customer identifier.
+    - **`entityid`**: NetSuite Unique identifier.
 
 
 ## **Installation**

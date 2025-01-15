@@ -5,7 +5,7 @@
  define(['N/record'], function(record) {
 
     function getInputData() {
-        return {type:'search', id: 'customsearch1830'}
+        return {type:'search', id: 'customsearch_customer_data'} //saved search with customerIds/entityId
     }
 
     function map(context) {
@@ -16,9 +16,6 @@
         var token =function() {
             return rand() +rand()
         }
-        //let customer =record.load({type:result.recordType, id: result.id})
-        //customer.setValue('custentity_cpp_token', token())
-        //customer.save()
         let updatedRecordId =record.submitFields({
           type:result.recordType, id:result.id, values:{'custentity_cpp_token': token()}
         })
