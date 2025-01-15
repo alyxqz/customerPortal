@@ -16,13 +16,13 @@ This Suitelet provides a secure portal for customers to view open invoices and m
 ## Screenshot Examples
 
 ### 1. Manage Invoices
-![Manage Invoices](https://imgur.com/a/6WuxMec)
+![Manage Invoices](https://i.imgur.com/R8AY3Vo.png)
 
 ### 2. Manage Payment Methods
-![Manage Payment Methods](https://imgur.com/a/dWRbzoZ)
+![Manage Payment Methods](https://i.imgur.com/rgZ1hvu.png)
 
 ### 3. Download/Print Receipts
-![Download/Print Receipts](https://imgur.com/a/Owwbrsn)
+![Download/Print Receipts](https://i.imgur.com/MHLJlSX.png)
 
 ---
 
