@@ -73,4 +73,24 @@ Update the `config.json` file with your account-specific settings:
 }
 ```
 
-### this is not a header mothergu
+### Usage
+
+## Payload Structure
+
+1. **Root Object**
+    - Contains two main sections: `payload` and `paymentMethod`.
+
+2. **`payload`**: Holds invoice data.
+    - **`invoiceId`**: Unique identifier of the invoice.
+    - **`amount`**: Payment amount applied to the invoice.
+
+3. **`paymentMethod`**: Contains details about the payment method.
+    - **`type`**: Payment type (`cc` or `ach`).
+    - **Credit Card Fields**:
+        - `ccnum`, `expDate`, `ccv`.
+    - **ACH Fields**:
+        - `achnum`, `routing`, `achname`.
+
+4. **Other Fields**:
+    - **`numTotal`**: Total transaction amount.
+    - **`entityid`**: Customer identifier.
