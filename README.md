@@ -15,7 +15,7 @@ This Suitelet provides a secure portal for customers to view open invoices and m
 
 ## Usage
 
-## Payload Structure
+#### Payload Structure
 
 1. **Root Object**
     - Contains two main sections: `payload` and `paymentMethod`.
