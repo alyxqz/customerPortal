@@ -54,11 +54,9 @@ Update the `config.json` file with your account-specific settings:
   }
 }
 ```
-## Usage
+## Generate Customer Tokens
 
-### Generate Customer Tokens
-
-##### Create NetSuite Custom Field
+### Create NetSuite Custom Field
 
 1. **Navigate**: 
     - Go to **Customization > List, Records & Fields >  Entity Fields**
@@ -68,7 +66,7 @@ Update the `config.json` file with your account-specific settings:
     - Type: TEXT
     - Applies To: **Customer**
 
-##### Create Token
+### Create Token
 
 3. Navigate to tokenGenerator script page:
     1. **Deploy Script**:  
