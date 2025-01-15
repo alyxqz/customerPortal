@@ -1,6 +1,6 @@
 # Customer Payment Portal Suitelet
 
-This Suitelet provides a secure portal for customers to view open invoices and make payments. The script dynamically generates the portal based on customer-specific data generated from Netsuite and uses Authorize.net (Visa) as a payment gateway
+This Suitelet provides a secure portal for customers to view open invoices and make payments. The script dynamically generates the portal based on customer-specific data generated from Netsuite and uses [Authorize.net](https://www.authorize.net/) as a payment gateway
 
 ---
 
@@ -36,6 +36,8 @@ This Suitelet provides a secure portal for customers to view open invoices and m
     - **`entityid`**: Customer identifier.
 
 
+
+
 ## **Installation**
 
 ### **1. Upload Files**
@@ -59,6 +61,7 @@ This Suitelet provides a secure portal for customers to view open invoices and m
 
 ### **4. Configure `config.json`**
 Update the `config.json` file with your account-specific settings:
+
 ```json
 {
   "HTML_TEMPLATE_ID": "123456",
@@ -76,7 +79,6 @@ Update the `config.json` file with your account-specific settings:
   }
 }
 ```
-
 
 ## Examples
 
