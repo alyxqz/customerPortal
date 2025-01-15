@@ -13,6 +13,17 @@ This Suitelet provides a secure portal for customers to view open invoices and m
 - **PDF Generation**: Generates downloadable PDF files for processed payments.
 - **Payment History Logging**: Logs every payment attempt for auditing.
 
+## Screenshot Examples
+
+### 1. Manage Invoices
+![Manage Invoices](https://imgur.com/a/6WuxMec)
+
+### 2. Manage Payment Methods
+![Manage Payment Methods](https://imgur.com/a/dWRbzoZ)
+
+### 3. Download/Print Receipts
+![Download/Print Receipts](https://imgur.com/a/Owwbrsn)
+
 ---
 
 ## **Installation**
@@ -54,3 +65,22 @@ Update the `config.json` file with your account-specific settings:
     "26": "https://example.com/logo3.png"
   }
 }
+
+## Overview
+This project provides a seamless platform for managing invoices, payment methods, and receipts. It is designed to improve efficiency and simplify financial processes.
+
+## Features
+- **Manage Invoices**: Easily create, view, and organize your invoices.
+- **Manage Payment Methods**: Add, edit, or remove payment methods with a simple interface.
+- **Download/Print Receipts**: Quickly download or print receipts for record-keeping.
+
+## Screenshot Examples
+
+### 1. Manage Invoices
+![Manage Invoices](path/to/screenshot-1.png)
+
+### 2. Manage Payment Methods
+![Manage Payment Methods](path/to/screenshot-2.png)
+
+### 3. Download/Print Receipts
+![Download/Print Receipts](path/to/screenshot-3.png)
