@@ -64,19 +64,19 @@ Update the `config.json` file with your account-specific settings:
     -Go to **Customization > List, Records & Fields >  Entity Fields**
 
 2. **Create New Fields**: 
-    -Enter field name (ex. `slToken`)
-    -Type: TEXT
-    -Applies To: **Customer**
+    - Enter field name (ex. `slToken`)
+    - Type: TEXT
+    - Applies To: **Customer**
 
 ##### Create Token
 
 3. Navigate to tokenGenerator script page:
     1. **Deploy Script**:  
-     -Choose recurring for Sch Type
-     -Set frequency to every 15 mins
+     - Choose recurring for Sch Type
+     - Set frequency to every 15 mins
 
     2. **Run `tokenGenerator.js` Map Reduce**: 
-     -Customer Records will be populated with unique a token used access inovoices.
+     - Customer Records will be populated with unique a token used access inovoices.
 
 ##### SuiteletURL
 Customer will automaticallly recieve a new email with a link to the Portal.
