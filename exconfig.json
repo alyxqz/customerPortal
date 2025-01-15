@@ -1,0 +1,15 @@
+{
+  "HTML_TEMPLATE_ID": "123456",
+  "RESPONSE_TEMPLATE_ID": "123457",
+  "FOLDER_ID": "456789",
+  "SUBSIDIARY_EMAILS": {
+    "23": "billing@company1.com",
+    "40": "accounting@company2.com",
+    "26": "accountsreceivable@company3.com"
+  },
+  "SUBSIDIARY_LOGOS": {
+    "23": "https://example.com/logo1.png",
+    "40": "https://example.com/logo2.png",
+    "26": "https://example.com/logo3.png"
+  }
+}
