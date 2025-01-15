@@ -13,24 +13,28 @@ This Suitelet provides a secure portal for customers to view open invoices and m
 - **PDF Generation**: Generates downloadable PDF files for processed payments.
 - **Payment History Logging**: Logs every payment attempt for auditing.
 
-## Examples
+### Usage
 
-### 1. Manage Invoices
-Get customer specifc data from NetSuite and allow users to manage open invoices for payment via tokenized suitelet
+## Payload Structure
 
-![Manage Invoices](https://i.imgur.com/R8AY3Vo.png)
+1. **Root Object**
+    - Contains two main sections: `payload` and `paymentMethod`.
 
+2. **`payload`**: Holds invoice data.
+    - **`invoiceId`**: Unique identifier of the invoice.
+    - **`amount`**: Payment amount applied to the invoice.
 
-### 2. Manage Payment Methods
-Allow customers to maintain (Update, Edit, Delete) Credit Card and ACH specific data.
-![Manage Payment Methods](https://i.imgur.com/rgZ1hvu.png)
+3. **`paymentMethod`**: Contains details about the payment method.
+    - **`type`**: Payment type (`cc` or `ach`).
+    - **Credit Card Fields**:
+        - `ccnum`, `expDate`, `ccv`.
+    - **ACH Fields**:
+        - `achnum`, `routing`, `achname`.
 
+4. **Other Fields**:
+    - **`numTotal`**: Total transaction amount.
+    - **`entityid`**: Customer identifier.
 
-### 3. Download/Print Receipts
-Print Open invoices from NetSuite to review and download payment receipts when payments is validated.
-![Download/Print Receipts](https://i.imgur.com/MHLJlSX.png)
-
----
 
 ## **Installation**
 
@@ -73,24 +77,22 @@ Update the `config.json` file with your account-specific settings:
 }
 ```
 
-### Usage
 
-## Payload Structure
+## Examples
 
-1. **Root Object**
-    - Contains two main sections: `payload` and `paymentMethod`.
+### 1. Manage Invoices
+Get customer specifc data from NetSuite and allow users to manage open invoices for payment via tokenized suitelet
 
-2. **`payload`**: Holds invoice data.
-    - **`invoiceId`**: Unique identifier of the invoice.
-    - **`amount`**: Payment amount applied to the invoice.
+![Manage Invoices](https://i.imgur.com/R8AY3Vo.png)
 
-3. **`paymentMethod`**: Contains details about the payment method.
-    - **`type`**: Payment type (`cc` or `ach`).
-    - **Credit Card Fields**:
-        - `ccnum`, `expDate`, `ccv`.
-    - **ACH Fields**:
-        - `achnum`, `routing`, `achname`.
 
-4. **Other Fields**:
-    - **`numTotal`**: Total transaction amount.
-    - **`entityid`**: Customer identifier.
+### 2. Manage Payment Methods
+Allow customers to maintain (Update, Edit, Delete) Credit Card and ACH specific data.
+![Manage Payment Methods](https://i.imgur.com/rgZ1hvu.png)
+
+
+### 3. Download/Print Receipts
+Print Open invoices from NetSuite to review and download payment receipts when payments is validated.
+![Download/Print Receipts](https://i.imgur.com/MHLJlSX.png)
+
+---
