@@ -276,6 +276,74 @@ function(file, record, search, render, authNet, constants) {
         return tokeid
         'ACH-TOKEN-456'; // Mocked response
     }
+    function proccessCCNoSave(params){
+        var payment =params.tranid
+        var new_config =authNet.getConfigFromCache()
+        var gtwy =params.sub ==40? 2: 1
+
+        if (new_config.mode === 'subsidiary'){
+            new_config = authNet.getSubConfig(params.sub, new_config);
+        }
+        let payload =params.payload
+        var paymentMethod =JSON.parse(params.paymentMethod)
+
+        log.debug('payloadnosave', payload)
+        log.debug('paymentMethod', paymentMethod)
+        log.debug('gtwy', gtwy)
+
+        let trankey =new_config.custrecord_an_trankey_sb.val
+        //let trankey =new_config.custrecord_an_trankey.val
+        let apiLogin =new_config.custrecord_an_login_sb.val
+        //let apiLogin =new_config.custrecord_an_login.val
+        
+        log.debug('newconfig', trankey)
+        log.debug('newconfig', new_config)
+        log.debug('newconfig', apiLogin)    
+        log.debug('subconfig', params.sub)
+        log.debug('ccparams', params)
+
+        let chargeCard = {
+            "createTransactionRequest": {
+                "merchantAuthentication": {
+                    "name": apiLogin,          // API login ID
+                    "transactionKey": trankey  // API transaction key
+                },
+                "refId": params.refid,         // Reference ID for the transaction
+                "transactionRequest": {
+                    "transactionType": "authCaptureTransaction", // Transaction type (e.g., authorize and capture)
+                    "amount": params.numTotal,  // Total transaction amount
+                    "payment": {
+                        "creditCard": {         // Credit card details for payment
+                            "cardNumber": paymentMethod.ccnum,
+                            "expirationDate": paymentMethod.expDate,
+                            "cardCode": paymentMethod.ccv
+                        }
+                    },
+                    "order": {
+                        "invoiceNumber": payment,  // Invoice number associated with the transaction
+                        "description": params.entity + ' customerPayment', // Description of the transaction
+                        "discountAmount": 0.0,     // Discounts applied (if any)
+                        "taxIsAfterDiscount": false // Indicates whether tax is calculated after discounts
+                    }
+                }
+            }
+        };
+        
+        
+        try{
+            var response = https.post({
+                headers: {'Content-Type': 'application/json'},
+                url: new_config.authSvcUrl,
+                body: JSON.stringify(chargeCard)
+            });
+
+            log.debug('response', response)
+        }catch(e){
+            log.debug('responseERROR', e)
+        }
+
+        return {'response': response, 'config': new_config}
+    }
 
     // Save customer payment
     function saveCustomerPayment(entityId, payload, token) {
