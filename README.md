@@ -56,12 +56,12 @@ Update the `config.json` file with your account-specific settings:
 ```
 ## Usage
 
-#### Generate Customer Tokens
+### Generate Customer Tokens
 
 ##### Create NetSuite Custom Field
 
 1. **Navigate**: 
-    -Go to **Customization > List, Records & Fields >  Entity Fields**
+    - Go to **Customization > List, Records & Fields >  Entity Fields**
 
 2. **Create New Fields**: 
     - Enter field name (ex. `slToken`)
