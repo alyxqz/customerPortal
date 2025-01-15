@@ -5,7 +5,17 @@
  define(['N/record'], function(record) {
 
     function getInputData() {
-        return {type:'search', id: 'customsearch_customer_data'} //saved search with customerIds/entityId
+        var customerSearch = search.create({
+            type: search.Type.CUSTOMER,
+            filters: [
+                ['custentity_cpptoken', search.Operator.ISEMPTY, '']
+            ],
+            columns: [
+                search.createColumn({ name: 'internalid', label: 'Internal ID' }),
+                search.createColumn({ name: 'entityid', label: 'Customer Name' })
+            ]
+        });
+        return customerSearch
     }
 
     function map(context) {

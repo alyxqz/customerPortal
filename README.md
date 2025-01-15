@@ -18,8 +18,8 @@ This Suitelet provides a secure portal for customers to view open invoices and m
 ### **1. Upload Files**
 1. Navigate to **Customization > Scripts > SuiteScripts** in your NetSuite account.
 2. Upload the following files:
-   - Main Suitelet script (`customerPaymentPortal.js`).
-   - Library scripts (e.g., `authNet.js`).
+   - Main Suitelet script (`customerPaymentPortal.js`,`tokenGenerator.js`, `InvoiceEmails.js`).
+   - Library scripts (e.g., `authNet.js`) or any Third Party Payment Gateway API
    - `config.json` for constants.
    - HTML templates for portal and response pages.
 
@@ -56,6 +56,36 @@ Update the `config.json` file with your account-specific settings:
 ```
 ## Usage
 
+#### Generate Customer Tokens
+
+##### Create NetSuite Custom Field
+
+1. **Navigate**: 
+    -Go to **Customization > List, Records & Fields >  Entity Fields**
+
+2. **Create New Fields**: 
+    -Enter field name (ex. `slToken`)
+    -Type: TEXT
+    -Applies To: **Customer**
+
+##### Create Token
+
+3. Navigate to tokenGenerator script page:
+    **Deploy Script**:  
+     -Choose recurring for Sch Type
+     -Set frequency to every 15 mins
+
+    **Run `tokenGenerator.js` Map Reduce**: 
+     -Customer Records will be populated with unique a token used access inovoices.
+
+##### SuiteletURL
+Customer will automaticallly recieve a new email with a link to the Portal.
+
+Alternatively, you can generate the PortalURL using this synaxtical structure
+```javascript
+let portalURL = SuiteletURL +'&tkn='+ slToken
+```
+
 #### Payload Structure
 
 1. **Root Object**
@@ -91,6 +121,6 @@ Allow customers to maintain (Update, Edit, Delete) Credit Card and ACH specific 
 
 ### 3. Download/Print Receipts
 Print Open invoices from NetSuite to review and download payment receipts when payments is validated.
-![Download/Print Receipts](https://i.imgur.com/MHLJlSX.png)
+![Download/Print Receipts](https://i.imgur.com/dsbjRLu.png)
 
 ---
