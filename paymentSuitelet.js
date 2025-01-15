@@ -5,8 +5,8 @@
  * @NAmdConfig /SuiteScripts/config.json
  */
 
-define(['N/file', 'N/https', 'N/record', 'N/search', 'N/render', './lib/authNet', './config/constants'], 
-function(file, https, record, search, render, authNet, constants) {
+define(['N/file', 'N/record', 'N/search', 'N/render', './lib/authNet', './config/constants'], 
+function(file, record, search, render, authNet, constants) {
 
     function onRequest(context) {
         try {
@@ -216,15 +216,65 @@ function(file, https, record, search, render, authNet, constants) {
         rec.setValue({fieldId: 'custrecord_an_token_type', value : o_newProfile.creditCard.cardtype});
         rec.setValue({fieldId: 'custrecord_an_token_last4', value : o_newProfile.creditCard.cardnum});
         rec.setValue({fieldId: 'name', value : o_newProfile.creditCard.cardtype + ' ('+o_newProfile.creditCard.cardnum+')'});
-        var tokeId =rec.save()
+        var tokenid =rec.save()
           
-        return 'CC-TOKEN-123'; // Mocked response
+        return tokenid; // Mocked response
     }
 
     // Process ACH
     function processACH(paymentMethod) {
-        // Logic for ACH processing
-        return 'ACH-TOKEN-456'; // Mocked response
+        rec =record.create({type:'customrecord_authnet_tokens'})
+        rec.setValue('custrecord_an_token_entity', _.trim(params.entityid))
+        rec.setValue('custrecord_an_token_gateway', 1)
+        rec.setValue('custrecord_an_token_paymenttype', 2)
+        rec.setValue('custrecord_an_token_bank_accounttype', _.trim(params.acctype))
+        rec.setValue('custrecord_an_token_bank_bankname', _.trim(params.achbank))
+        rec.setValue('custrecord_an_token_customer_type', 'business')
+        rec.setValue('custrecord_an_token_bank_accountnumber', _.trim(params.achnum))
+        rec.setValue('custrecord_an_token_bank_nameonaccount', _.trim(params.achname))
+        rec.setValue('custrecord_an_token_bank_routingnumber', _.trim(params.routing))
+        
+        rec.setValue('custrecord_an_token_uuid', authNet.buildUUID())
+        
+        var o_config = authNet.getConfigFromCache(+rec.getValue({fieldId: 'custrecord_an_token_gateway'}));
+        log.debug('o_config', o_config)
+    
+        var new_config =authNet.getConfigFromCache()
+        log.debug('o_config', o_config)
+        log.debug('sub', params.sub)
+      
+        var gtwy =params.sub ==40? 2: 1
+        if (new_config.mode === 'subsidiary'){
+            new_config = authNet.getSubConfig(params.sub, new_config);
+        }
+        
+        var o_newProfile = authNet.createNewProfile(rec, new_config);
+        log.debug(o_newProfile)
+    
+        if (!o_newProfile.success){
+            //build link to the history record for reference
+            var historyURL = url.resolveRecord({
+                recordType: 'customrecord_authnet_history',
+                recordId: o_newProfile.histId,
+                isEditMode: false
+            });
+            var s_error = 'Unable to validate payment method - error received:<br>'+
+                'CODE : '+ o_newProfile.code + '<br>' +
+                'MESSAGE : ' +o_newProfile.message + '<br>' + 'Click <a href="'+historyURL+'" target="_blank">here</a> to view the Authorize.Net Response if you need additional information.'
+            throw s_error;
+        }
+        rec.setValue('custrecord_an_token_gateway_sub', gtwy)
+        rec.setValue('custrecord_an_token_subsidiary', params.sub)
+        rec.setValue('custrecord_an_token_customerid', o_newProfile.customerProfileId)
+        rec.setValue('custrecord_an_token_token', o_newProfile.customerPaymentProfileIdList[0])
+        rec.setValue({fieldId: 'custrecord_an_token_type', value : o_newProfile.bankAccount.accountType});
+        rec.setValue({fieldId: 'custrecord_an_token_last4', value : o_newProfile.bankAccount.accountNum});
+        rec.setValue({fieldId: 'name', value : o_newProfile.bankAccount.accountType + ' ('+o_newProfile.bankAccount.accountNum+')'});
+        var tokeid =rec.save()  
+        
+
+        return tokeid
+        'ACH-TOKEN-456'; // Mocked response
     }
 
     // Save customer payment
