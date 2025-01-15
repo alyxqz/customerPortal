@@ -76,7 +76,7 @@ Update the `config.json` file with your account-specific settings:
         - Set frequency to every 15 mins
 
     2. **Run `tokenGenerator.js` Map Reduce**: 
-        - Customer Records will be populated with unique a token used access inovoices.
+        - Customer Records will be populated with unique a token used to access inovoices.
 
 ##### SuiteletURL
 Customer will automaticallly recieve a new email with a link to the Portal.
