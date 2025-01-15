@@ -2,27 +2,32 @@
 
 This Suitelet provides a secure portal for customers to view open invoices and make payments. The script dynamically generates the portal based on customer-specific data and integrates with NetSuite’s payment processing features.
 
+This script is generic and can handle all third party API's for Credit Card/ACH processing. This example using Visa's Authorize.net payment gateway
+
 ---
 
 ## **Features**
 
 - **Token-based Authentication**: Secure access using customer-specific tokens.
-- **Invoice Display**: Fetches and displays all open invoices for the authenticated customer.
+- **Manage Invoices**: Fetches and displays all open invoices for the authenticated customer.
 - **Payment Processing**: Supports credit card (CC) and ACH payment methods.
 - **Dynamic Templates**: Uses HTML templates for portal and response pages.
 - **PDF Generation**: Generates downloadable PDF files for processed payments.
 - **Payment History Logging**: Logs every payment attempt for auditing.
 
-## Screenshot Examples
+## Examples
 
 ### 1. Manage Invoices
 ![Manage Invoices](https://i.imgur.com/R8AY3Vo.png)
+Get customer specifc data from NetSuite and allow users to manage open invoices for payment via tokenized suitelet
 
 ### 2. Manage Payment Methods
 ![Manage Payment Methods](https://i.imgur.com/rgZ1hvu.png)
+Allow customers to maintain (Update, Edit, Delete) Credit Card and ACH specific data.
 
 ### 3. Download/Print Receipts
 ![Download/Print Receipts](https://i.imgur.com/MHLJlSX.png)
+Print Open invoices from NetSuite to review and download payment receipts when payments is validated.
 
 ---
 
@@ -65,22 +70,3 @@ Update the `config.json` file with your account-specific settings:
     "26": "https://example.com/logo3.png"
   }
 }
-
-## Overview
-This project provides a seamless platform for managing invoices, payment methods, and receipts. It is designed to improve efficiency and simplify financial processes.
-
-## Features
-- **Manage Invoices**: Easily create, view, and organize your invoices.
-- **Manage Payment Methods**: Add, edit, or remove payment methods with a simple interface.
-- **Download/Print Receipts**: Quickly download or print receipts for record-keeping.
-
-## Screenshot Examples
-
-### 1. Manage Invoices
-![Manage Invoices](path/to/screenshot-1.png)
-
-### 2. Manage Payment Methods
-![Manage Payment Methods](path/to/screenshot-2.png)
-
-### 3. Download/Print Receipts
-![Download/Print Receipts](path/to/screenshot-3.png)
