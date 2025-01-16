@@ -104,9 +104,11 @@ let portalURL = SuiteletURL +'&tkn='+ slToken
     - **`numTotal`**: Total transaction amount.
     - **`entityid`**: Customer identifier.
 
+--
+
 Once this payload is transmitted, **Authorize.net** will validate the payment securly  and store any sensitive customer data. NetSuite will receive a correesponding Customer Payment/Receipt. 
 
-NetSuite will not store any sensitive Credit Card or ACH data.
+**NetSuite** will not store any sensitive Credit Card or ACH data.
 
 ## Examples
 
